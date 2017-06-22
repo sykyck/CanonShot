@@ -34,3 +34,21 @@
 /Volumes/C/CannonShot/Temp/bin/Debug/Unity.CecilTools.dll
 /Volumes/C/CannonShot/Temp/bin/Debug/Mono.Cecil.Pdb.dll
 /Volumes/C/CannonShot/Temp/bin/Debug/Mono.Cecil.Mdb.dll
+/Volumes/C/Github Desktop/CanonShot/Temp/bin/Debug/Assembly-CSharp.dll.mdb
+/Volumes/C/Github Desktop/CanonShot/Temp/bin/Debug/Assembly-CSharp.dll
+/Volumes/C/Github Desktop/CanonShot/obj/Debug/Assembly-CSharp.dll
+/Volumes/C/Github Desktop/CanonShot/obj/Debug/Assembly-CSharp.dll.mdb
+/Volumes/C/Github Desktop/CanonShot/Temp/bin/Debug/UnityEngine.dll
+/Volumes/C/Github Desktop/CanonShot/Temp/bin/Debug/UnityEditor.dll
+/Volumes/C/Github Desktop/CanonShot/Temp/bin/Debug/UnityEngine.UI.dll
+/Volumes/C/Github Desktop/CanonShot/Temp/bin/Debug/UnityEngine.Networking.dll
+/Volumes/C/Github Desktop/CanonShot/Temp/bin/Debug/UnityEngine.Analytics.dll
+/Volumes/C/Github Desktop/CanonShot/Temp/bin/Debug/Mono.Cecil.dll
+/Volumes/C/Github Desktop/CanonShot/Temp/bin/Debug/Unity.SerializationLogic.dll
+/Volumes/C/Github Desktop/CanonShot/Temp/bin/Debug/Unity.DataContract.dll
+/Volumes/C/Github Desktop/CanonShot/Temp/bin/Debug/ICSharpCode.NRefactory.dll
+/Volumes/C/Github Desktop/CanonShot/Temp/bin/Debug/Unity.UNetWeaver.dll
+/Volumes/C/Github Desktop/CanonShot/Temp/bin/Debug/Unity.UNetWeaver.dll.mdb
+/Volumes/C/Github Desktop/CanonShot/Temp/bin/Debug/Unity.CecilTools.dll
+/Volumes/C/Github Desktop/CanonShot/Temp/bin/Debug/Mono.Cecil.Pdb.dll
+/Volumes/C/Github Desktop/CanonShot/Temp/bin/Debug/Mono.Cecil.Mdb.dll

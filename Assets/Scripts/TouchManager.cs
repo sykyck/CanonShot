@@ -5,11 +5,14 @@ public class TouchManager : MonoBehaviour
 {
 	public bool detectCanonBalls;
 	public static bool IsTouchValid;
-
+	System.Collections.Generic.List<int> particleSystemChoosen;
+	System.Collections.Generic.List<int> particleSystemCollided;
 	void Start ()
 	{
 		detectCanonBalls = false;
 		IsTouchValid = false;
+		particleSystemChoosen = new System.Collections.Generic.List<int> ();
+		particleSystemCollided = new System.Collections.Generic.List<int> ();
 	}
 
 	void Update ()
@@ -20,7 +23,15 @@ public class TouchManager : MonoBehaviour
 			if (IsTouchValid) 
 			{
 				gameObject.GetComponent<PolygonCollider2D> ().enabled = true;
-				gameObject.transform.GetChild(0).gameObject.SetActive(true);
+				for (int i = 0; i < gameObject.transform.childCount; i++)
+				{
+					if (!gameObject.transform.GetChild (i).gameObject.activeInHierarchy) 
+					{
+						gameObject.transform.GetChild (i).gameObject.SetActive (true);
+						particleSystemChoosen.Add (i);
+						break;
+					}
+				}
 				gameObject.transform.position = new Vector3 (Camera.main.ScreenToWorldPoint (Input.mousePosition).x, Camera.main.ScreenToWorldPoint (Input.mousePosition).y, -2f);
 				detectCanonBalls = true;
 			}
@@ -28,7 +39,7 @@ public class TouchManager : MonoBehaviour
 		if (Input.GetMouseButtonUp (0))
 		{
 			gameObject.GetComponent<PolygonCollider2D> ().enabled = false;
-			gameObject.transform.GetChild(0).gameObject.SetActive(false);
+			Invoke ("makeParticleSystemChoosenInactive", 1.5f);
 			detectCanonBalls = false;
 			IsTouchValid = false;
 		}
@@ -41,15 +52,23 @@ public class TouchManager : MonoBehaviour
 				{
 				    case TouchPhase.Began:
 					    gameObject.GetComponent<PolygonCollider2D> ().enabled = true;
-					    gameObject.transform.GetChild(0).gameObject.SetActive(true);
+						for (int i = 0; i < gameObject.transform.childCount; i++)
+						{
+							if (!gameObject.transform.GetChild (i).gameObject.activeInHierarchy) 
+							{
+								gameObject.transform.GetChild (i).gameObject.SetActive (true);
+								particleSystemChoosen.Add (i);
+								break;
+							}
+						}
 					    gameObject.transform.position = new Vector3 (Camera.main.ScreenToWorldPoint (Input.GetTouch (0).position).x, Camera.main.ScreenToWorldPoint (Input.GetTouch (0).position).y, -2f);
 						detectCanonBalls = true;
 						break;
 				    case TouchPhase.Moved:
 						break;
-					case TouchPhase.Ended:
-						gameObject.GetComponent<PolygonCollider2D> ().enabled = false;
-					    gameObject.transform.GetChild(0).gameObject.SetActive(false);
+				    case TouchPhase.Ended:
+					    gameObject.GetComponent<PolygonCollider2D> ().enabled = false;
+					    Invoke ("makeParticleSystemChoosenInactive", 1.5f);
 						detectCanonBalls = false;
 						IsTouchValid = false;
 						break;
@@ -58,14 +77,32 @@ public class TouchManager : MonoBehaviour
 		}
 	
 	}
-
+	void makeParticleSystemChoosenInactive()
+	{
+		gameObject.transform.GetChild (particleSystemChoosen [0]).gameObject.SetActive (false);
+		particleSystemChoosen.RemoveAt (0);
+	}
+	void makeParticleSystemCollidedInactive()
+	{
+		gameObject.transform.GetChild (particleSystemCollided [0]).gameObject.SetActive (false);
+		particleSystemCollided.RemoveAt (0);
+	}
 	void OnCollisionEnter2D (Collision2D collision)
 	{
 		if ((detectCanonBalls) && ((collision.gameObject.name == "CanonBall") || (collision.gameObject.name == "CoinPrefab"))) 
 		{
 			collision.gameObject.GetComponent<Rigidbody2D>().Sleep ();
+			for (int i = 0; i < gameObject.transform.childCount; i++)
+			{
+				if (!gameObject.transform.GetChild (i).gameObject.activeInHierarchy) 
+				{
+					gameObject.transform.GetChild (i).gameObject.SetActive (true);
+					particleSystemCollided.Add (i);
+					Invoke ("makeParticleSystemCollidedInactive", 1.5f);
+					break;
+				}
+			}
 			collision.gameObject.SetActive (false);
-			collision.gameObject.transform.position = CanonRotatiion.Canon.transform.position;
 			if (collision.gameObject.name == "CanonBall") {
 				GameManager.score = GameManager.score + 1;
 			}
@@ -74,6 +111,7 @@ public class TouchManager : MonoBehaviour
 			}
 		}
 	}
+		
 
 	public void UseCoinsToIncreaseVortex()
 	{
@@ -84,5 +122,6 @@ public class TouchManager : MonoBehaviour
 			gameObject.transform.GetChild (0).gameObject.GetComponent<ParticleSystem> ().startSize += 1;
 		}
 	}
+		
 		
 }
