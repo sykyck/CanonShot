@@ -73,7 +73,9 @@ public class CanonBall : MonoBehaviour {
 	}
 	void IncreaseForceMultiplier()
 	{
-		forceMultiplier += 20;
+		if (forceMultiplier < 1000) {
+			forceMultiplier += 20;
+		}
 	}
 	void shootBall()
 	{
