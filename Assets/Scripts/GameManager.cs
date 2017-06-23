@@ -49,19 +49,24 @@ public class GameManager : MonoBehaviour {
 	}
 	public void PauseGame()
 	{
-		if (!pause) {
+		if (!pause)
+		{
 			BlackHole_GameObj.GetComponent<TouchManager>().enabled=false;
-			Canon_GameObj.GetComponent<CanonBall>().enabled=false;
-			Canon_GameObj.GetComponent<CanonRotatiion>().enabled=false;
+			Canon_GameObj.GetComponent<CanonBall> ().enabled = false;
+			Canon_GameObj.GetComponent<CanonRotatiion> ().enabled = false;
+			Canon_GameObj.GetComponent<Rigidbody2D> ().Sleep ();
 			pause = true;
 			startPauseTime = Time.time;
+			Time.timeScale = 0;
 		}
-		else {
+		else 
+		{
 			BlackHole_GameObj.GetComponent<TouchManager>().enabled=true;
 			Canon_GameObj.GetComponent<CanonBall>().enabled=true;
 			Canon_GameObj.GetComponent<CanonRotatiion>().enabled=true;
 			pause = false;
 			endPauseTime = Time.time;
+			Time.timeScale = 1;
 		}
 
 	}
