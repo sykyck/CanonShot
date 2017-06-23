@@ -38,10 +38,13 @@ public class TouchManager : MonoBehaviour
 		}
 		if (Input.GetMouseButtonUp (0))
 		{
-			gameObject.GetComponent<PolygonCollider2D> ().enabled = false;
-			Invoke ("makeParticleSystemChoosenInactive", 1.5f);
-			detectCanonBalls = false;
-			IsTouchValid = false;
+			if (IsTouchValid)
+			{
+				gameObject.GetComponent<PolygonCollider2D> ().enabled = false;
+				Invoke ("makeParticleSystemChoosenInactive", 1.5f);
+				detectCanonBalls = false;
+				IsTouchValid = false;
+			}
 		}
 		if (Input.touchCount > 0)
 		{

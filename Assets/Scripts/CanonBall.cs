@@ -5,6 +5,7 @@ using System;
 public class CanonBall : MonoBehaviour {
 	public GameObject Balls;
 	public GameObject Coins;
+	Vector3 initCanonPos;
 	int maxNumberInScene,currentTotalNum,currentBallsNumInScene,currentCoinsNumInScene,shootIntervalMinLimit,shootIntervalMaxLimit,numberSelected,counter,optionToSelect,coinToDisappear,forceMultiplier;
 	bool IsCanonRotating;
     GameObject BallReference,CoinReference;
@@ -26,6 +27,7 @@ public class CanonBall : MonoBehaviour {
 		numberSelected = randomObj.Next (shootIntervalMinLimit, shootIntervalMaxLimit);
 		optionToSelect = Option.Next (1, 3);
 		IsCanonRotating = true;
+		initCanonPos = transform.position;
 	}
 	
 	// Update is called once per frame
@@ -84,6 +86,8 @@ public class CanonBall : MonoBehaviour {
 				currentBallsNumInScene = currentBallsNumInScene + 1;
 				currentTotalNum = currentTotalNum + 1;
 				BallReference.GetComponent<Rigidbody2D> ().AddForce (Quaternion.Euler (0, 0, transform.rotation.eulerAngles.z) * (Vector3.up) * 1 * forceMultiplier);
+				gameObject.GetComponent<Rigidbody2D> ().AddForce (Quaternion.Euler (0, 0, transform.rotation.eulerAngles.z) * (Vector3.up) * -1 * forceMultiplier);
+				Invoke ("PlaceCanonAtInitPos", 0.5f);
 				break;
 			}
 			if(i==Balls.transform.childCount-1)
@@ -98,9 +102,16 @@ public class CanonBall : MonoBehaviour {
 				currentTotalNum = currentTotalNum - currentBallsNumInScene + 1;
 				currentBallsNumInScene = 1;
 				BallReference.GetComponent<Rigidbody2D> ().AddForce (Quaternion.Euler (0, 0, transform.rotation.eulerAngles.z) * (Vector3.up) * 1 * forceMultiplier);
+				gameObject.GetComponent<Rigidbody2D> ().AddForce (Quaternion.Euler (0, 0, transform.rotation.eulerAngles.z) * (Vector3.up) * -1 * forceMultiplier);
+				Invoke ("PlaceCanonAtInitPos", 0.5f);
 			}
 		}
 		Invoke("StartCanonRotation",1f);
+	}
+	void PlaceCanonAtInitPos()
+	{
+		gameObject.GetComponent<Rigidbody2D> ().Sleep ();
+		gameObject.transform.position = Vector3.MoveTowards (transform.position, initCanonPos,Vector3.Distance(transform.position,initCanonPos));
 	}
 	void shootCoin()
 	{
@@ -114,6 +125,8 @@ public class CanonBall : MonoBehaviour {
 				currentCoinsNumInScene = currentCoinsNumInScene + 1;
 				currentTotalNum = currentTotalNum + 1;
 				CoinReference.GetComponent<Rigidbody2D> ().AddForce (Quaternion.Euler (0, 0, transform.rotation.eulerAngles.z) * (Vector3.up) * 1 * forceMultiplier);
+				gameObject.GetComponent<Rigidbody2D> ().AddForce (Quaternion.Euler (0, 0, transform.rotation.eulerAngles.z) * (Vector3.up) * -1 * forceMultiplier);
+				Invoke ("PlaceCanonAtInitPos", 0.5f);
 				break;
 			}
 			if(i==Coins.transform.childCount-1)
@@ -128,6 +141,8 @@ public class CanonBall : MonoBehaviour {
 				currentTotalNum = currentTotalNum - currentCoinsNumInScene + 1;
 				currentCoinsNumInScene = 1;
 				CoinReference.GetComponent<Rigidbody2D> ().AddForce (Quaternion.Euler (0, 0, transform.rotation.eulerAngles.z) * (Vector3.up) * 1 * forceMultiplier);
+				gameObject.GetComponent<Rigidbody2D> ().AddForce (Quaternion.Euler (0, 0, transform.rotation.eulerAngles.z) * (Vector3.up) * -1 * forceMultiplier);
+				Invoke ("PlaceCanonAtInitPos", 0.5f);
 			}
 		}
 		Invoke("StartCanonRotation",1f);
@@ -141,7 +156,7 @@ public class CanonBall : MonoBehaviour {
 		Ray ray = new Ray(pointerPosition, Vector3.forward);
 		if (Physics.Raycast (ray, out hit))
 		{
-			if (hit.collider.name == "Canon") 
+			if (hit.collider.name == "CanonCollider") 
 			{
 				Debug.Log ("Clicked On Canon");
 				TouchManager.IsTouchValid = false;
@@ -211,7 +226,7 @@ public class CanonBall : MonoBehaviour {
 		Ray ray = new Ray(pointerPosition, Vector3.forward);
 		if (Physics.Raycast(ray, out hit))
 		{
-			if (hit.collider.name == "Canon") 
+			if (hit.collider.name == "CanonCollider") 
 			{
 				Debug.Log ("Clicked On Canon");
 				TouchManager.IsTouchValid = false;
@@ -223,7 +238,7 @@ public class CanonBall : MonoBehaviour {
 				for (int i = 0; i < hits.Length; i++)
 				{
 					Debug.Log (hits [i].collider.name);
-					if (hits [i].collider.name == "Canon")
+					if (hits [i].collider.name == "CanonCollider")
 					{
 						Debug.Log ("Clicked On Canon");
 						TouchManager.IsTouchValid = false;
