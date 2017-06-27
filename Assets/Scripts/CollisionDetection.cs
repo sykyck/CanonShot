@@ -56,6 +56,7 @@ public class CollisionDetection : MonoBehaviour {
 		GameManager.strikesAllowed = 3;
 		GameManager.score = 0;
 		GameManager.strikes = 0;
+		CanonRotatiion.rotationSpeedFactor = 50;
 		MainStatus.GetComponent<UnityEngine.UI.Text> ().text = "Game Started Again";
 		GameEndPanel.SetActive (false);
 		GameManager.StartOrPauseGame ();

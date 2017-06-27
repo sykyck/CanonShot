@@ -124,8 +124,9 @@ public class TouchManager : MonoBehaviour
 		if (GameManager.coinsCollected > 20) 
 		{
 			GameManager.coinsCollected = GameManager.coinsCollected - 20;
-			gameObject.transform.localScale = new Vector3 (gameObject.transform.localScale.x + (float)0.1, gameObject.transform.localScale.y + (float)0.1, gameObject.transform.localScale.z);
-			gameObject.transform.GetChild (0).gameObject.GetComponent<ParticleSystem> ().startSize += 1;
+			for (int i = 0; i < gameObject.transform.childCount; i++) {
+				gameObject.transform.GetChild (i).gameObject.GetComponent<ParticleSystem> ().startSize += 1;
+			}
 		} 
 		else 
 		{
@@ -138,6 +139,7 @@ public class TouchManager : MonoBehaviour
 		GameManager.strikesAllowed = 3;
 		GameManager.score = 0;
 		GameManager.strikes = 0;
+		CanonRotatiion.rotationSpeedFactor = 50;
 		MainStatus.GetComponent<UnityEngine.UI.Text> ().text = "Vortex Size Increased";
 		GameEndPanel.SetActive (false);
 		GameManager.StartOrPauseGame ();

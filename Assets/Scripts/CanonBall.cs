@@ -9,6 +9,7 @@ public class CanonBall : MonoBehaviour {
 	public GameObject MainStatus;
 	public GameObject GameEndPanel;
 	Vector3 initCanonPos;
+	bool disableIncreaseInForceMultiplier;
 	int maxNumberInScene,currentTotalNum,currentBallsNumInScene,currentCoinsNumInScene,shootIntervalMinLimit,shootIntervalMaxLimit,numberSelected,counter,optionToSelect,coinToDisappear,forceMultiplier;
 	bool IsCanonRotating,IsCoinPresentInRandomPlayArea;
     GameObject BallReference,CoinReference;
@@ -38,6 +39,7 @@ public class CanonBall : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
+		
 		if ((IsCanonRotating)&&(CanonRotatiion.canCanonShoot)&&(!IsCoinPresentInRandomPlayArea))
 		{
 			counter = counter + 1;

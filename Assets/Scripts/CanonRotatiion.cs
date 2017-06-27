@@ -3,7 +3,7 @@ using System.Collections;
 
 public class CanonRotatiion : MonoBehaviour {
 	public float speed;
-	public float rotationSpeedFactor;
+	public static float rotationSpeedFactor;
 	public static GameObject Canon;
 	float angleRotated;
 	int timesCanonCanShot;
