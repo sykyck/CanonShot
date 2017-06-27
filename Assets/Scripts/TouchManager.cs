@@ -131,7 +131,7 @@ public class TouchManager : MonoBehaviour
 		{
 			GameStatus.GetComponent<UnityEngine.UI.Text> ().text = "Coins are less than 20";
 		}
-		Invoke ("StartGameWithIncreaseVortexSize", 0.5f);
+		StartGameWithIncreaseVortexSize();
 	}
 	void StartGameWithIncreaseVortexSize()
 	{

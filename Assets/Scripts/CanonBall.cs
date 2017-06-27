@@ -273,7 +273,7 @@ public class CanonBall : MonoBehaviour {
 		{
 			GameStatus.GetComponent<UnityEngine.UI.Text> ().text = "Coins are less than 30";
 		}
-		Invoke ("StartGameWithLessShootSpeed", 0.5f);
+		StartGameWithLessShootSpeed ();
 	}
 	void StartGameWithLessShootSpeed()
 	{

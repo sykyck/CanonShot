@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour {
 		{
 			GameStatus.GetComponent<UnityEngine.UI.Text> ().text = "Coins are less than 60";
 		}
-		Invoke ("StartGameWithExtraLife", 0.5f);
+		StartGameWithExtraLife();
 	}
 
 	void StartGameWithExtraLife()
