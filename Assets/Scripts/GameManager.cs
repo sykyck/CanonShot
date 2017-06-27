@@ -58,8 +58,6 @@ public class GameManager : MonoBehaviour {
 
 	void StartGameWithExtraLife()
 	{
-		GameManager.score = 0;
-		GameManager.strikes = 0;
 		MainStatus.GetComponent<UnityEngine.UI.Text> ().text = "Shoot Speed Decreased";
 		GameEndPanel.SetActive (false);
 		GameManager.StartOrPauseGame ();
@@ -85,6 +83,11 @@ public class GameManager : MonoBehaviour {
 			endPauseTime = Time.time;
 			Time.timeScale = 1;
 		}
+	}
+
+	public void OnPauseButtonClick()
+	{
+		StartOrPauseGame ();
 	}
 
 }
