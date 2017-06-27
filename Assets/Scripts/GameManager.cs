@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour {
     public static bool pause;
 	public static float startPauseTime,endPauseTime;
 	public GameObject GameStatus;
+	public GameObject Strikes;
 	public GameObject MainStatus;
 	public GameObject GameEndPanel;
 	public GameObject scoreText_GameObj;
@@ -48,17 +49,21 @@ public class GameManager : MonoBehaviour {
 		{
 			coinsCollected = coinsCollected - 60;
 			strikesAllowed = strikesAllowed + 1;
+			StartGameWithExtraLife();
 		} 
 		else 
 		{
 			GameStatus.GetComponent<UnityEngine.UI.Text> ().text = "Coins are less than 60";
 		}
-		StartGameWithExtraLife();
 	}
 
 	void StartGameWithExtraLife()
 	{
-		MainStatus.GetComponent<UnityEngine.UI.Text> ().text = "Shoot Speed Decreased";
+		MainStatus.GetComponent<UnityEngine.UI.Text> ().text = "Extra Life Awarded";
+		for (int j = 0; j < Strikes.transform.childCount; j++)
+		{
+			Strikes.transform.GetChild (j).gameObject.SetActive (true);
+		}
 		GameEndPanel.SetActive (false);
 		GameManager.StartOrPauseGame ();
 	}	

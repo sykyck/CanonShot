@@ -27,7 +27,6 @@ public class CanonRotatiion : MonoBehaviour {
 		angleRotated += 1 * speed;
 		if (((int)angleRotated / 180) > (timesCanonCanShot-1)) 
 		{
-			Debug.Log ("inside if");
 			canCanonShoot = true;
 			timesCanonCanShot = ((int)angleRotated / 180)+1;
 		}

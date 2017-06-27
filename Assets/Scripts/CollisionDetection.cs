@@ -34,16 +34,19 @@ public class CollisionDetection : MonoBehaviour {
 						break;
 					}
 				}
-				if (i == Strikes.transform.childCount - 1)
+				if (i == (Strikes.transform.childCount - 1))
 				{
 					for (int j = 0; j < Strikes.transform.childCount; j++)
 					{
 						Strikes.transform.GetChild (j).gameObject.SetActive (false);
 					}
-					MainStatus.GetComponent<UnityEngine.UI.Text> ().text = "Game Ended";
-					GameEndPanel.SetActive (true);
-					GameManager.StartOrPauseGame ();
 				}
+			}
+			if (GameManager.strikes == GameManager.strikesAllowed)
+			{
+				MainStatus.GetComponent<UnityEngine.UI.Text> ().text = "Game Ended";
+				GameEndPanel.SetActive (true);
+				GameManager.StartOrPauseGame ();
 			}
 		}
 	}

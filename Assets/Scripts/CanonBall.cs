@@ -10,7 +10,7 @@ public class CanonBall : MonoBehaviour {
 	public GameObject GameEndPanel;
 	Vector3 initCanonPos;
 	int maxNumberInScene,currentTotalNum,currentBallsNumInScene,currentCoinsNumInScene,shootIntervalMinLimit,shootIntervalMaxLimit,numberSelected,counter,optionToSelect,coinToDisappear,forceMultiplier;
-	bool IsCanonRotating;
+	bool IsCanonRotating,IsCoinPresentInRandomPlayArea;
     GameObject BallReference,CoinReference;
 	System.Random randomObj;
 	System.Random Option;
@@ -31,13 +31,14 @@ public class CanonBall : MonoBehaviour {
 		optionToSelect = Option.Next (1, 3);
 		IsCanonRotating = true;
 		initCanonPos = transform.position;
+		IsCoinPresentInRandomPlayArea = false;
 		GameManager.Canon_GameObj = gameObject;
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
-		if ((IsCanonRotating)&&(CanonRotatiion.canCanonShoot))
+		if ((IsCanonRotating)&&(CanonRotatiion.canCanonShoot)&&(!IsCoinPresentInRandomPlayArea))
 		{
 			counter = counter + 1;
 			if ((currentTotalNum < maxNumberInScene) && (counter == numberSelected))
@@ -53,7 +54,7 @@ public class CanonBall : MonoBehaviour {
 				     case 2:
 						StopCanonRotation ();
 						break;
-					 case 3:
+				     case 3:
 						PlaceCoinAtRandomPlayarea ();
 						break;
 				}
@@ -171,6 +172,8 @@ public class CanonBall : MonoBehaviour {
 			}
 			if(hit.collider.name=="CircleBackGround")
 			{
+				MainStatus.GetComponent<UnityEngine.UI.Text> ().text = "Coin Appeared";
+				IsCoinPresentInRandomPlayArea = true;
 				pointerPosition.z = -2f;
 				for(int i=0;i<Coins.transform.childCount;i++)
 				{
@@ -194,6 +197,8 @@ public class CanonBall : MonoBehaviour {
 						Coins.transform.GetChild (0).gameObject.SetActive (true);
 						currentTotalNum = currentTotalNum - currentCoinsNumInScene + 1;
 						currentCoinsNumInScene = 1;
+						coinToDisappear = 0;
+						Invoke ("MakeCoinDisappear", 1f);
 					}
 				}
 			}
@@ -202,6 +207,8 @@ public class CanonBall : MonoBehaviour {
 	}
 	void MakeCoinDisappear()
 	{
+		IsCoinPresentInRandomPlayArea = false;
+		MainStatus.GetComponent<UnityEngine.UI.Text> ().text = "";
 		if (Coins.transform.GetChild (coinToDisappear).gameObject.activeInHierarchy) {
 			Coins.transform.GetChild (coinToDisappear).gameObject.SetActive (false);
 			currentCoinsNumInScene = currentCoinsNumInScene - 1;
