@@ -185,6 +185,7 @@ public class CanonBall : MonoBehaviour {
 						currentCoinsNumInScene = currentCoinsNumInScene + 1;
 						currentTotalNum = currentTotalNum + 1;
 						coinToDisappear = i;
+						MainStatus.GetComponent<UnityEngine.UI.Text> ().text = "Coin Appeared-"+Convert.ToString(i);
 						Invoke ("MakeCoinDisappear", 1f);
 						break;
 					}
@@ -194,10 +195,13 @@ public class CanonBall : MonoBehaviour {
 						{
 							Coins.transform.GetChild (j).gameObject.SetActive (false);
 						}
-						Coins.transform.GetChild (0).gameObject.SetActive (true);
+						CoinReference = Coins.transform.GetChild (0).gameObject;
+						CoinReference.transform.position = pointerPosition;
+						CoinReference.SetActive (true);
 						currentTotalNum = currentTotalNum - currentCoinsNumInScene + 1;
 						currentCoinsNumInScene = 1;
 						coinToDisappear = 0;
+						MainStatus.GetComponent<UnityEngine.UI.Text> ().text = "Coin Appeared-" + Convert.ToString (0);
 						Invoke ("MakeCoinDisappear", 1f);
 					}
 				}
