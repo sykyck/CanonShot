@@ -3,6 +3,11 @@ using System.Collections;
 
 public class CollisionDetection : MonoBehaviour {
 	public GameObject Strikes;
+	public GameObject GameEndPanel;
+	public GameObject MainStatus;
+	public GameObject BlackHole_GameObj;
+	public GameObject Canon_GameObj;
+	public GameObject Pause;
 
 	// Use this for initialization
 	void Start () {
@@ -25,7 +30,9 @@ public class CollisionDetection : MonoBehaviour {
 				if (!Strikes.transform.GetChild (i).gameObject.activeInHierarchy)
 				{
 					Strikes.transform.GetChild (i).gameObject.SetActive (true);
-					break;
+					if (i != (Strikes.transform.childCount - 1)) {
+						break;
+					}
 				}
 				if (i == Strikes.transform.childCount - 1)
 				{
@@ -33,8 +40,22 @@ public class CollisionDetection : MonoBehaviour {
 					{
 						Strikes.transform.GetChild (j).gameObject.SetActive (false);
 					}
+					MainStatus.GetComponent<UnityEngine.UI.Text> ().text = "Game Ended";
+					GameEndPanel.SetActive (true);
+					GameManager.StartOrPauseGame ();
 				}
 			}
 		}
 	}
+
+	public void BackButton()
+	{
+		GameManager.strikesAllowed = 3;
+		GameManager.score = 0;
+		GameManager.strikes = 0;
+		MainStatus.GetComponent<UnityEngine.UI.Text> ().text = "Game Started Again";
+		GameEndPanel.SetActive (false);
+		GameManager.StartOrPauseGame ();
+	}
+
 }

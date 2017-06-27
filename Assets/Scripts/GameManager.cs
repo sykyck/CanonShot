@@ -7,12 +7,15 @@ public class GameManager : MonoBehaviour {
 	public static int coinsCollected;
 	public static int strikes;
 	public static float totalPauseTime;
+	public static GameObject BlackHole_GameObj;
+	public static GameObject Canon_GameObj;
+    public static bool pause;
+	public static float startPauseTime,endPauseTime;
+	public GameObject GameStatus;
+	public GameObject MainStatus;
+	public GameObject GameEndPanel;
 	public GameObject scoreText_GameObj;
 	public GameObject coinsText_GameObj;
-	public GameObject BlackHole_GameObj;
-	public GameObject Canon_GameObj;
-	bool pause;
-	float startPauseTime,endPauseTime;
 	UnityEngine.UI.Text scoreText,coinsText; 
 	// Use this for initialization
 	void Start () 
@@ -41,13 +44,27 @@ public class GameManager : MonoBehaviour {
 	}
 	public void GainExtraLife()
 	{
-		if (coinsCollected > 60) 
+		if (coinsCollected >= 60) 
 		{
 			coinsCollected = coinsCollected - 60;
 			strikesAllowed = strikesAllowed + 1;
+		} 
+		else 
+		{
+			GameStatus.GetComponent<UnityEngine.UI.Text> ().text = "Coins are less than 60";
 		}
+		Invoke ("StartGameWithExtraLife", 0.5f);
 	}
-	public void PauseGame()
+
+	void StartGameWithExtraLife()
+	{
+		GameManager.score = 0;
+		GameManager.strikes = 0;
+		MainStatus.GetComponent<UnityEngine.UI.Text> ().text = "Shoot Speed Decreased";
+		GameEndPanel.SetActive (false);
+		GameManager.StartOrPauseGame ();
+	}	
+	public static void StartOrPauseGame()
 	{
 		if (!pause)
 		{
@@ -68,6 +85,6 @@ public class GameManager : MonoBehaviour {
 			endPauseTime = Time.time;
 			Time.timeScale = 1;
 		}
-
 	}
+
 }

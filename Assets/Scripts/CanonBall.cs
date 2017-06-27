@@ -5,6 +5,9 @@ using System;
 public class CanonBall : MonoBehaviour {
 	public GameObject Balls;
 	public GameObject Coins;
+	public GameObject GameStatus;
+	public GameObject MainStatus;
+	public GameObject GameEndPanel;
 	Vector3 initCanonPos;
 	int maxNumberInScene,currentTotalNum,currentBallsNumInScene,currentCoinsNumInScene,shootIntervalMinLimit,shootIntervalMaxLimit,numberSelected,counter,optionToSelect,coinToDisappear,forceMultiplier;
 	bool IsCanonRotating;
@@ -28,6 +31,7 @@ public class CanonBall : MonoBehaviour {
 		optionToSelect = Option.Next (1, 3);
 		IsCanonRotating = true;
 		initCanonPos = transform.position;
+		GameManager.Canon_GameObj = gameObject;
 	}
 	
 	// Update is called once per frame
@@ -250,5 +254,34 @@ public class CanonBall : MonoBehaviour {
 				}
 			}
 		}
-	}		
+	}
+	public void ShootwithLessSpeed()
+	{
+		if (GameManager.coinsCollected >= 30)
+		{
+			GameManager.coinsCollected = GameManager.coinsCollected - 30;
+			if (forceMultiplier >= 300)
+			{
+				forceMultiplier = forceMultiplier - 200;
+			} 
+			else 
+			{
+				forceMultiplier = 100;
+			}
+		} 
+		else
+		{
+			GameStatus.GetComponent<UnityEngine.UI.Text> ().text = "Coins are less than 30";
+		}
+		Invoke ("StartGameWithLessShootSpeed", 0.5f);
+	}
+	void StartGameWithLessShootSpeed()
+	{
+		GameManager.strikesAllowed = 3;
+		GameManager.score = 0;
+		GameManager.strikes = 0;
+		MainStatus.GetComponent<UnityEngine.UI.Text> ().text = "Shoot Speed Decreased";
+		GameEndPanel.SetActive (false);
+		GameManager.StartOrPauseGame ();
+	}
 }

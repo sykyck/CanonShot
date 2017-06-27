@@ -1,12 +1,16 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/CollisionDetection.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/GooglePlayGames/Editor/GPGSDependencies.cs">
     <Files>
-      <File FileName="Assets/Scripts/TouchManager.cs" Line="42" Column="4" />
-      <File FileName="Assets/Scripts/CanonBall.cs" Line="114" Column="138" />
-      <File FileName="Assets/Scripts/GameManager.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/CanonRotatiion.cs" Line="23" Column="20" />
-      <File FileName="Assets/Scripts/CollisionDetection.cs" Line="21" Column="1" />
+      <File FileName="Assets/Scripts/CollisionDetection.cs" Line="34" Column="7" />
+      <File FileName="Assets/Scripts/TouchManager.cs" Line="80" Column="4" />
+      <File FileName="Assets/Scripts/CanonBall.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/GameManager.cs" Line="56" Column="66" />
+      <File FileName="Assets/Scripts/CanonRotatiion.cs" Line="1" Column="1" />
+      <File FileName="Assets/GooglePlayGames/Editor/GPGSAndroidSetupUI.cs" Line="25" Column="26" />
+      <File FileName="Assets/Plugins/Android/MainLibProj/AndroidManifest.xml" Line="1" Column="1" />
+      <File FileName="Assets/GooglePlayGames/GameInfo.cs" Line="1" Column="1" />
+      <File FileName="Assets/GooglePlayGames/Editor/GPGSDependencies.cs" Line="21" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

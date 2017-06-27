@@ -4,11 +4,15 @@ using System.Collections;
 public class TouchManager : MonoBehaviour
 {
 	public bool detectCanonBalls;
+	public GameObject GameStatus;
+	public GameObject MainStatus;
+	public GameObject GameEndPanel;
 	public static bool IsTouchValid;
 	System.Collections.Generic.List<int> particleSystemChoosen;
 	System.Collections.Generic.List<int> particleSystemCollided;
 	void Start ()
 	{
+		GameManager.BlackHole_GameObj = gameObject;
 		detectCanonBalls = false;
 		IsTouchValid = false;
 		particleSystemChoosen = new System.Collections.Generic.List<int> ();
@@ -78,7 +82,6 @@ public class TouchManager : MonoBehaviour
 				}
 			}
 		}
-	
 	}
 	void makeParticleSystemChoosenInactive()
 	{
@@ -118,13 +121,26 @@ public class TouchManager : MonoBehaviour
 
 	public void UseCoinsToIncreaseVortex()
 	{
-		if (GameManager.coinsCollected > 20)
+		if (GameManager.coinsCollected > 20) 
 		{
 			GameManager.coinsCollected = GameManager.coinsCollected - 20;
 			gameObject.transform.localScale = new Vector3 (gameObject.transform.localScale.x + (float)0.1, gameObject.transform.localScale.y + (float)0.1, gameObject.transform.localScale.z);
 			gameObject.transform.GetChild (0).gameObject.GetComponent<ParticleSystem> ().startSize += 1;
+		} 
+		else 
+		{
+			GameStatus.GetComponent<UnityEngine.UI.Text> ().text = "Coins are less than 20";
 		}
+		Invoke ("StartGameWithIncreaseVortexSize", 0.5f);
 	}
-		
+	void StartGameWithIncreaseVortexSize()
+	{
+		GameManager.strikesAllowed = 3;
+		GameManager.score = 0;
+		GameManager.strikes = 0;
+		MainStatus.GetComponent<UnityEngine.UI.Text> ().text = "Vortex Size Increased";
+		GameEndPanel.SetActive (false);
+		GameManager.StartOrPauseGame ();
+	}
 		
 }
