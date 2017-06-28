@@ -10,7 +10,8 @@ public class CanonBall : MonoBehaviour {
 	public GameObject GameEndPanel;
 	Vector3 initCanonPos;
 	bool disableIncreaseInForceMultiplier;
-	int maxNumberInScene,currentTotalNum,currentBallsNumInScene,currentCoinsNumInScene,shootIntervalMinLimit,shootIntervalMaxLimit,numberSelected,counter,optionToSelect,coinToDisappear,forceMultiplier;
+	int shootIntervalMinLimit,shootIntervalMaxLimit,numberSelected,counter,optionToSelect,coinToDisappear,forceMultiplier,maxNumInScene;
+	public static int currentTotalNum,currentBallsNumInScene,currentCoinsNumInScene;
 	bool IsCanonRotating,IsCoinPresentInRandomPlayArea;
     GameObject BallReference,CoinReference;
 	System.Random randomObj;
@@ -22,11 +23,12 @@ public class CanonBall : MonoBehaviour {
 		randomObj = new System.Random();
 		Option = new System.Random();
 		SpawnPointObj= new System.Random();
-		maxNumberInScene = 20;
 		forceMultiplier = 100;
+		maxNumInScene = 20;
 		counter = 0;
 		shootIntervalMinLimit = 5;
 		shootIntervalMaxLimit = 40;
+		disableIncreaseInForceMultiplier = false;
 		InvokeRepeating ("IncreaseForceMultiplier", 0f, 15f);
 		numberSelected = randomObj.Next (shootIntervalMinLimit, shootIntervalMaxLimit);
 		optionToSelect = Option.Next (1, 3);
@@ -43,7 +45,7 @@ public class CanonBall : MonoBehaviour {
 		if ((IsCanonRotating)&&(CanonRotatiion.canCanonShoot)&&(!IsCoinPresentInRandomPlayArea))
 		{
 			counter = counter + 1;
-			if ((currentTotalNum < maxNumberInScene) && (counter == numberSelected))
+			if ((currentTotalNum<maxNumInScene)&&(counter == numberSelected))
 			{
 				counter = shootIntervalMinLimit-1;
 				numberSelected = randomObj.Next (shootIntervalMinLimit, shootIntervalMaxLimit);
@@ -80,7 +82,7 @@ public class CanonBall : MonoBehaviour {
 	}
 	void IncreaseForceMultiplier()
 	{
-		if (forceMultiplier < 1000) {
+		if ((forceMultiplier < 1000)&&(!disableIncreaseInForceMultiplier)) {
 			forceMultiplier += 20;
 		}
 	}
@@ -174,7 +176,6 @@ public class CanonBall : MonoBehaviour {
 			}
 			if(hit.collider.name=="CircleBackGround")
 			{
-				MainStatus.GetComponent<UnityEngine.UI.Text> ().text = "Coin Appeared";
 				IsCoinPresentInRandomPlayArea = true;
 				pointerPosition.z = -2f;
 				for(int i=0;i<Coins.transform.childCount;i++)
@@ -187,7 +188,6 @@ public class CanonBall : MonoBehaviour {
 						currentCoinsNumInScene = currentCoinsNumInScene + 1;
 						currentTotalNum = currentTotalNum + 1;
 						coinToDisappear = i;
-						MainStatus.GetComponent<UnityEngine.UI.Text> ().text = "Coin Appeared-"+Convert.ToString(i);
 						Invoke ("MakeCoinDisappear", 1f);
 						break;
 					}
@@ -203,7 +203,6 @@ public class CanonBall : MonoBehaviour {
 						currentTotalNum = currentTotalNum - currentCoinsNumInScene + 1;
 						currentCoinsNumInScene = 1;
 						coinToDisappear = 0;
-						MainStatus.GetComponent<UnityEngine.UI.Text> ().text = "Coin Appeared-" + Convert.ToString (0);
 						Invoke ("MakeCoinDisappear", 1f);
 					}
 				}
@@ -273,14 +272,9 @@ public class CanonBall : MonoBehaviour {
 		if (GameManager.coinsCollected >= 30)
 		{
 			GameManager.coinsCollected = GameManager.coinsCollected - 30;
-			if (forceMultiplier >= 300)
-			{
-				forceMultiplier = forceMultiplier - 200;
-			} 
-			else 
-			{
-				forceMultiplier = 100;
-			}
+			disableIncreaseInForceMultiplier = true;
+			Invoke ("enableIncreaseInForceMultiplier", 40f);
+			forceMultiplier = 100;
 		} 
 		else
 		{
@@ -288,6 +282,11 @@ public class CanonBall : MonoBehaviour {
 		}
 		StartGameWithLessShootSpeed ();
 	}
+	void enableIncreaseInForceMultiplier()
+	{
+		disableIncreaseInForceMultiplier = false;
+	}
+		
 	void StartGameWithLessShootSpeed()
 	{
 		GameManager.strikesAllowed = 3;

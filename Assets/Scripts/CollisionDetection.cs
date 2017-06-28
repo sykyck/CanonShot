@@ -23,6 +23,14 @@ public class CollisionDetection : MonoBehaviour {
 		{
 			collision.gameObject.GetComponent<Rigidbody2D>().Sleep ();
 			collision.gameObject.SetActive (false);
+			if (collision.gameObject.name == "CanonBall") {
+				CanonBall.currentBallsNumInScene = CanonBall.currentBallsNumInScene - 1;
+				CanonBall.currentTotalNum = CanonBall.currentTotalNum - 1;
+			}
+			if (collision.gameObject.name == "CoinPrefab") {
+				CanonBall.currentCoinsNumInScene = CanonBall.currentCoinsNumInScene - 1;
+				CanonBall.currentTotalNum = CanonBall.currentTotalNum - 1;
+			}
 			collision.gameObject.transform.position = CanonRotatiion.Canon.transform.position;
 			GameManager.strikes = GameManager.strikes + 1;
 			for (int i = 0; i < Strikes.transform.childCount; i++)
