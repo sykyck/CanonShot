@@ -254,7 +254,7 @@ public class CanonBall : MonoBehaviour {
 				hits = Physics.RaycastAll (pointerPosition, Vector3.forward, Mathf.Infinity);
 				for (int i = 0; i < hits.Length; i++)
 				{
-					if (hits [i].collider.name == "CanonCollider")
+					if ((hits [i].collider.name == "CanonCollider")||(hits [i].collider.name == "ParticleSystem"))
 					{
 						TouchManager.IsTouchValid = false;
 						break;
