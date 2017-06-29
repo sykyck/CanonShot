@@ -31,6 +31,7 @@ public class LeaderBoardManager : MonoBehaviour
 					Debug.Log ("Login failed");
 				}
 			});
+		OnShowLeaderBoard ();
 	}
 	/// <summary>
 	/// Shows All Available Leaderborad
