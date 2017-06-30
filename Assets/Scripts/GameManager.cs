@@ -57,7 +57,12 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
-	void StartGameWithExtraLife()
+	public void OnWatcHAdvertisementClick()
+	{
+		strikesAllowed = strikesAllowed + 1;
+		StartGameWithExtraLife();
+	}
+    void StartGameWithExtraLife()
 	{
 		MainStatus.GetComponent<UnityEngine.UI.Text> ().text = "Extra Life Awarded";
 		for (int j = 0; j < Strikes.transform.childCount; j++)
@@ -95,4 +100,6 @@ public class GameManager : MonoBehaviour {
 		StartOrPauseGame ();
 	}
 
+
+		
 }
