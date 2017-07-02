@@ -275,12 +275,12 @@ public class CanonBall : MonoBehaviour {
 			disableIncreaseInForceMultiplier = true;
 			Invoke ("enableIncreaseInForceMultiplier", 40f);
 			forceMultiplier = 100;
+			StartGameWithLessShootSpeed ();
 		} 
 		else
 		{
 			GameStatus.GetComponent<UnityEngine.UI.Text> ().text = "Coins are less than 30";
 		}
-		StartGameWithLessShootSpeed ();
 	}
 	void enableIncreaseInForceMultiplier()
 	{
