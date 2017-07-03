@@ -6,6 +6,7 @@ public class TouchManager : MonoBehaviour
 	public GameObject GameStatus;
 	public GameObject MainStatus;
 	public GameObject GameEndPanel;
+	public GameObject LowerPanel;
 	public static bool IsTouchValid;
     System.Collections.Generic.List<int> particleSystemChoosen;
 	void Start ()
@@ -84,35 +85,67 @@ public class TouchManager : MonoBehaviour
 	{
 		if (GameManager.coinsCollected >= 20) 
 		{
-			GameManager.coinsCollected = GameManager.coinsCollected - 20;
-			for (int i = 0; i < gameObject.transform.childCount; i++) {
-				gameObject.transform.GetChild (i).gameObject.transform.localScale += new Vector3(1f,1f,0f);
-				gameObject.transform.GetChild (i).gameObject.GetComponent<ParticleSystem>().startSize+=1;
+			if (GameEndPanel.activeInHierarchy) 
+			{
+				GameManager.coinsCollected = GameManager.coinsCollected - 20;
+				for (int i = 0; i < gameObject.transform.childCount; i++)
+				{
+					gameObject.transform.GetChild (i).gameObject.transform.localScale += new Vector3 (1f, 1f, 0f);
+					gameObject.transform.GetChild (i).gameObject.GetComponent<ParticleSystem> ().startSize += 1;
+				}
+				Invoke ("DecreaseVortexSizeAfterFixedTime", 30f);
+				StartGameWithIncreaseVortexSize ();
+			} 
+			else 
+			{
+				GameManager.StartOrPauseGame ();
+				GameManager.coinsCollected = GameManager.coinsCollected - 20;
+				for (int i = 0; i < gameObject.transform.childCount; i++)
+				{
+					gameObject.transform.GetChild (i).gameObject.transform.localScale += new Vector3 (1f, 1f, 0f);
+					gameObject.transform.GetChild (i).gameObject.GetComponent<ParticleSystem> ().startSize += 1;
+				}
+				Invoke ("DecreaseVortexSizeAfterFixedTime", 30f);
+				StartGameWithIncreaseVortexSize ();
 			}
-			Invoke ("DecreaseVortexSizeAfterFixedTime", 30f);
-			StartGameWithIncreaseVortexSize();
 		} 
 		else 
 		{
-			GameStatus.GetComponent<UnityEngine.UI.Text> ().text = "Coins are less than 20";
+			if (GameStatus.activeInHierarchy) 
+			{
+				GameStatus.GetComponent<UnityEngine.UI.Text> ().text = "Coins are less than 20";
+			}
+			else
+			{
+				MainStatus.GetComponent<UnityEngine.UI.Text> ().text = "Coins are less than 20";
+			}
 		}
 	}
 	void DecreaseVortexSizeAfterFixedTime()
 	{
 		for (int i = 0; i < gameObject.transform.childCount; i++) {
-			gameObject.transform.GetChild (i).gameObject.transform.localScale = new Vector3 (0.4f, 0.4f, 0f);
+			gameObject.transform.GetChild (i).gameObject.transform.localScale = new Vector3 (0.4f, 0.4f, 1f);
 			gameObject.transform.GetChild (i).gameObject.GetComponent<ParticleSystem> ().startSize = 3;
 		}
 	}
 	void StartGameWithIncreaseVortexSize()
 	{
-		GameManager.strikesAllowed = 3;
-		GameManager.score = 0;
-		GameManager.strikes = 0;
-		CanonRotatiion.rotationSpeedFactor = 50;
-		MainStatus.GetComponent<UnityEngine.UI.Text> ().text = "Vortex Size Increased";
-		GameEndPanel.SetActive (false);
-		GameManager.StartOrPauseGame ();
+		LowerPanel.SetActive (true);
+		if (GameEndPanel.activeInHierarchy) 
+		{
+			GameManager.strikesAllowed = 3;
+			GameManager.score = 0;
+			GameManager.strikes = 0;
+			CanonRotatiion.rotationSpeedFactor = 50;
+			MainStatus.GetComponent<UnityEngine.UI.Text> ().text = "Vortex Size Increased";
+			GameEndPanel.SetActive (false);
+			GameManager.StartOrPauseGame ();
+		} 
+		else
+		{
+			MainStatus.GetComponent<UnityEngine.UI.Text> ().text = "Vortex Size Increased";
+			GameManager.StartOrPauseGame ();
+		}
 	}
 		
 }

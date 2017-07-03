@@ -8,6 +8,7 @@ public class CanonBall : MonoBehaviour {
 	public GameObject GameStatus;
 	public GameObject MainStatus;
 	public GameObject GameEndPanel;
+	public GameObject LowerPanel;
 	Vector3 initCanonPos;
 	bool disableIncreaseInForceMultiplier;
 	int shootIntervalMinLimit,shootIntervalMaxLimit,numberSelected,counter,optionToSelect,coinToDisappear,forceMultiplier,maxNumInScene;
@@ -271,15 +272,34 @@ public class CanonBall : MonoBehaviour {
 	{
 		if (GameManager.coinsCollected >= 30)
 		{
-			GameManager.coinsCollected = GameManager.coinsCollected - 30;
-			disableIncreaseInForceMultiplier = true;
-			Invoke ("enableIncreaseInForceMultiplier", 40f);
-			forceMultiplier = 100;
-			StartGameWithLessShootSpeed ();
+			if (GameEndPanel.activeInHierarchy)
+			{
+				GameManager.coinsCollected = GameManager.coinsCollected - 30;
+				disableIncreaseInForceMultiplier = true;
+				Invoke ("enableIncreaseInForceMultiplier", 40f);
+				forceMultiplier = 100;
+				StartGameWithLessShootSpeed ();
+			}
+			else 
+			{
+				GameManager.StartOrPauseGame ();
+				GameManager.coinsCollected = GameManager.coinsCollected - 30;
+				disableIncreaseInForceMultiplier = true;
+				Invoke ("enableIncreaseInForceMultiplier", 40f);
+				forceMultiplier = 100;
+				StartGameWithLessShootSpeed ();
+			}
 		} 
 		else
 		{
-			GameStatus.GetComponent<UnityEngine.UI.Text> ().text = "Coins are less than 30";
+			if (GameEndPanel.activeInHierarchy)
+			{
+				GameStatus.GetComponent<UnityEngine.UI.Text> ().text = "Coins are less than 30";
+			} 
+			else
+			{
+				MainStatus.GetComponent<UnityEngine.UI.Text> ().text = "Coins are less than 30";
+			}
 		}
 	}
 	void enableIncreaseInForceMultiplier()
@@ -289,11 +309,20 @@ public class CanonBall : MonoBehaviour {
 		
 	void StartGameWithLessShootSpeed()
 	{
-		GameManager.strikesAllowed = 3;
-		GameManager.score = 0;
-		GameManager.strikes = 0;
-		MainStatus.GetComponent<UnityEngine.UI.Text> ().text = "Shoot Speed Decreased";
-		GameEndPanel.SetActive (false);
-		GameManager.StartOrPauseGame ();
+		LowerPanel.SetActive (true);
+		if (GameEndPanel.activeInHierarchy)
+		{
+			GameManager.strikesAllowed = 3;
+			GameManager.score = 0;
+			GameManager.strikes = 0;
+			MainStatus.GetComponent<UnityEngine.UI.Text> ().text = "Shoot Speed Decreased";
+			GameEndPanel.SetActive (false);
+			GameManager.StartOrPauseGame ();
+		} 
+		else
+		{
+			MainStatus.GetComponent<UnityEngine.UI.Text> ().text = "Shoot Speed Decreased";
+			GameManager.StartOrPauseGame ();
+		}
 	}
 }

@@ -15,8 +15,12 @@ public class GameManager : MonoBehaviour {
 	public GameObject Strikes;
 	public GameObject MainStatus;
 	public GameObject GameEndPanel;
+	public GameObject Lives;
+	public GameObject AliveImageReference;
+	public GameObject DeadImageReference;
 	public GameObject scoreText_GameObj;
 	public GameObject coinsText_GameObj;
+	public GameObject LowerPanel;
 	UnityEngine.UI.Text scoreText,coinsText; 
 	// Use this for initialization
 	void Start () 
@@ -25,7 +29,7 @@ public class GameManager : MonoBehaviour {
 		score = 0;
 		strikes = 0;
 		strikesAllowed = 3;
-		coinsCollected = 0;
+		coinsCollected = 60;
 		scoreText = scoreText_GameObj.GetComponent<UnityEngine.UI.Text> ();
 		coinsText = coinsText_GameObj.GetComponent<UnityEngine.UI.Text> ();
 	}
@@ -47,30 +51,100 @@ public class GameManager : MonoBehaviour {
 	{
 		if (coinsCollected >= 60) 
 		{
-			coinsCollected = coinsCollected - 60;
-			strikesAllowed = strikesAllowed + 1;
-			StartGameWithExtraLife();
+			if (GameEndPanel.activeInHierarchy)
+			{
+				coinsCollected = coinsCollected - 60;
+				strikesAllowed = strikesAllowed + 1;
+				StartGameWithExtraLife ();
+			}
+			else 
+			{
+				coinsCollected = coinsCollected - 60;
+				strikesAllowed = strikesAllowed + 1;
+				GameManager.StartOrPauseGame ();
+				StartGameWithExtraLife ();
+			}
 		} 
 		else 
 		{
-			GameStatus.GetComponent<UnityEngine.UI.Text> ().text = "Coins are less than 60";
+			if (GameEndPanel.activeInHierarchy) 
+			{
+				GameStatus.GetComponent<UnityEngine.UI.Text> ().text = "Coins are less than 60";
+			} 
+			else 
+			{
+				MainStatus.GetComponent<UnityEngine.UI.Text> ().text = "Coins are less than 60";
+			}
 		}
 	}
 
 	public void OnWatcHAdvertisementClick()
 	{
 		strikesAllowed = strikesAllowed + 1;
-		StartGameWithExtraLife();
+		if (GameEndPanel.activeInHierarchy)
+		{
+			StartGameWithExtraLife ();
+		} 
+		else 
+		{
+			GameManager.StartOrPauseGame ();
+			StartGameWithExtraLife ();
+		}
 	}
     void StartGameWithExtraLife()
 	{
-		MainStatus.GetComponent<UnityEngine.UI.Text> ().text = "Extra Life Awarded";
-		for (int j = 0; j < Strikes.transform.childCount; j++)
+		LowerPanel.SetActive (true);
+		if (GameEndPanel.activeInHierarchy) 
 		{
-			Strikes.transform.GetChild (j).gameObject.SetActive (true);
+			MainStatus.GetComponent<UnityEngine.UI.Text> ().text = "Extra Life Awarded";
+			for (int j = 0; j < Strikes.transform.childCount; j++) 
+			{
+				Strikes.transform.GetChild (j).gameObject.SetActive (true);
+			}
+			for (int j = 0; j < Lives.transform.childCount; j++)
+			{
+				if (!Lives.transform.GetChild (j).gameObject.activeInHierarchy) 
+				{
+					Lives.transform.GetChild (j).gameObject.SetActive (true);
+					Lives.transform.GetChild (j).gameObject.GetComponent<UnityEngine.UI.Image> ().sprite = AliveImageReference.GetComponent<UnityEngine.UI.Image> ().sprite;
+					break;
+				}
+				if (j == (Lives.transform.childCount-1))
+				{
+					for (int k = 0; k < Lives.transform.childCount; k++) 
+					{
+						Lives.transform.GetChild (k).gameObject.SetActive (false);
+					}
+					Lives.transform.GetChild (0).gameObject.SetActive (true);
+					Lives.transform.GetChild (0).gameObject.GetComponent<UnityEngine.UI.Image> ().sprite = AliveImageReference.GetComponent<UnityEngine.UI.Image> ().sprite;
+				}
+			}
+			GameEndPanel.SetActive (false);
+			GameManager.StartOrPauseGame ();
+		} 
+		else
+		{
+			MainStatus.GetComponent<UnityEngine.UI.Text> ().text = "Extra Life Awarded";
+			for (int j = 0; j < Lives.transform.childCount; j++)
+			{
+				if (!Lives.transform.GetChild (j).gameObject.activeInHierarchy) 
+				{
+					Lives.transform.GetChild (j).gameObject.SetActive (true);
+					Lives.transform.GetChild (j).gameObject.GetComponent<UnityEngine.UI.Image> ().sprite = AliveImageReference.GetComponent<UnityEngine.UI.Image> ().sprite;
+					break;
+				}
+				if (j == (Lives.transform.childCount-1))
+				{
+					for (int k = 0; k < Lives.transform.childCount; k++) 
+					{
+						Lives.transform.GetChild (k).gameObject.SetActive (false);
+					}
+					Lives.transform.GetChild (0).gameObject.SetActive (true);
+					Lives.transform.GetChild (0).gameObject.GetComponent<UnityEngine.UI.Image> ().sprite = AliveImageReference.GetComponent<UnityEngine.UI.Image> ().sprite;
+				}
+			}
+			GameManager.StartOrPauseGame ();
 		}
-		GameEndPanel.SetActive (false);
-		GameManager.StartOrPauseGame ();
 	}	
 	public static void StartOrPauseGame()
 	{
@@ -99,7 +173,4 @@ public class GameManager : MonoBehaviour {
 	{
 		StartOrPauseGame ();
 	}
-
-
-		
 }
