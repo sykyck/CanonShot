@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 
 Project("{35F94658-9768-F652-2347-5415E6232ABD}") = "CanonShot", "Assembly-CSharp.csproj", "{CC5A0D51-1E29-9618-6F66-17395A9C5F8A}"
 EndProject
+Project("{35F94658-9768-F652-2347-5415E6232ABD}") = "CanonShot", "Assembly-CSharp-Editor.csproj", "{D1777613-2803-2B00-2576-7557826E764B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{CC5A0D51-1E29-9618-6F66-17395A9C5F8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CC5A0D51-1E29-9618-6F66-17395A9C5F8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CC5A0D51-1E29-9618-6F66-17395A9C5F8A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1777613-2803-2B00-2576-7557826E764B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1777613-2803-2B00-2576-7557826E764B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1777613-2803-2B00-2576-7557826E764B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1777613-2803-2B00-2576-7557826E764B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
