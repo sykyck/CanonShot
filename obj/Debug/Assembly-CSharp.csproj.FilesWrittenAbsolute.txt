@@ -53,3 +53,4 @@
 /Volumes/C/Github Desktop/CanonShot/Temp/bin/Debug/Mono.Cecil.Pdb.dll
 /Volumes/C/Github Desktop/CanonShot/Temp/bin/Debug/Mono.Cecil.Mdb.dll
 /Volumes/C/Github Desktop/CanonShot/Temp/bin/Debug/UIAddons.dll
+/Volumes/C/Github Desktop/CanonShot/Temp/bin/Debug/UnityEngine.Advertisements.dll

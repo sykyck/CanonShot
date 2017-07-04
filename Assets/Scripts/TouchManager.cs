@@ -154,6 +154,9 @@ public class TouchManager : MonoBehaviour
 					Lives.transform.GetChild (i).gameObject.SetActive (false);
 				}
 			}
+			for (int j = 0; j < GameManager.BlackHole_GameObj.transform.childCount; j++) {
+				GameManager.BlackHole_GameObj.transform.GetChild (j).gameObject.SetActive (false);
+			}
 			GameEndPanel.SetActive (false);
 			GameManager.StartOrPauseGame ();
 		} 

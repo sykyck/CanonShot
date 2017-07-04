@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Advertisements;
 using System.Collections;
 
 public class GameManager : MonoBehaviour {
@@ -94,8 +95,39 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
-	public void OnWatcHAdvertisementClick()
+	public void ShowRewardedAd()
 	{
+		if (Advertisement.IsReady ("rewardedVideo")) {
+			GameManager.StartOrPauseGame ();
+			var options = new ShowOptions { resultCallback = HandleShowResult };
+			Advertisement.Show ("rewardedVideo", options);
+		} else {
+			MainStatus.GetComponent<UnityEngine.UI.Text> ().text = "No Ads Ready Try Again";
+		}
+	}
+
+	private void HandleShowResult(ShowResult result)
+	{
+		switch (result)
+		{
+			case ShowResult.Finished:
+				Debug.Log ("The ad was successfully shown.");
+		    	Invoke("OnWatcHAdvertisementClick",1f);
+				break;
+			case ShowResult.Skipped:
+				Debug.Log("The ad was skipped before reaching the end.");
+			    Invoke("OnWatcHAdvertisementClick",1f);
+				break;
+			case ShowResult.Failed:
+				Debug.LogError("The ad failed to be shown.");
+			    Invoke("OnWatcHAdvertisementClick",1f);
+				break;
+		}
+	}
+
+   void OnWatcHAdvertisementClick()
+	{
+		GameManager.StartOrPauseGame ();
 		if (GameEndPanel.activeInHierarchy)
 		{
 		  if(strikesAllowed<maxstrikesAllowed)
@@ -127,10 +159,10 @@ public class GameManager : MonoBehaviour {
 		if (GameEndPanel.activeInHierarchy) 
 		{
 			MainStatus.GetComponent<UnityEngine.UI.Text> ().text = "Extra Life Awarded";
-			for (int j = 0; j < Strikes.transform.childCount; j++) 
-			{
-				Strikes.transform.GetChild (j).gameObject.SetActive (true);
-			}
+//			for (int j = 0; j < Strikes.transform.childCount; j++) 
+//			{
+//				Strikes.transform.GetChild (j).gameObject.SetActive (true);
+//			}
 			LowerPanel.SetActive (true);
 			for (int j = 0; j < Lives.transform.childCount; j++)
 			{
@@ -140,6 +172,9 @@ public class GameManager : MonoBehaviour {
 					Lives.transform.GetChild (j).gameObject.GetComponent<UnityEngine.UI.Image> ().sprite = AliveImage;
 					break;
 				}
+			}
+			for (int j = 0; j < BlackHole_GameObj.transform.childCount; j++) {
+				BlackHole_GameObj.transform.GetChild (j).gameObject.SetActive (false);
 			}
 			GameEndPanel.SetActive (false);
 			GameManager.StartOrPauseGame();
@@ -186,4 +221,5 @@ public class GameManager : MonoBehaviour {
 	{
 		StartOrPauseGame ();
 	}
+		
 }

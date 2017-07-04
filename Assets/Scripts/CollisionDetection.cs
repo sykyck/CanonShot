@@ -39,23 +39,23 @@ public class CollisionDetection : MonoBehaviour {
 			}
 			collision.gameObject.transform.position = CanonRotatiion.Canon.transform.position;
 			GameManager.strikes = GameManager.strikes + 1;
-			for (int i = 0; i < Strikes.transform.childCount; i++)
-			{
-				if (!Strikes.transform.GetChild (i).gameObject.activeInHierarchy)
-				{
-					Strikes.transform.GetChild (i).gameObject.SetActive (true);
-					if (i != (Strikes.transform.childCount - 1)) {
-						break;
-					}
-				}
-				if (i == (Strikes.transform.childCount - 1))
-				{
-					for (int j = 0; j < Strikes.transform.childCount; j++)
-					{
-						Strikes.transform.GetChild (j).gameObject.SetActive (false);
-					}
-				}
-			}
+//			for (int i = 0; i < Strikes.transform.childCount; i++)
+//			{
+//				if (!Strikes.transform.GetChild (i).gameObject.activeInHierarchy)
+//				{
+//					Strikes.transform.GetChild (i).gameObject.SetActive (true);
+//					if (i != (Strikes.transform.childCount - 1)) {
+//						break;
+//					}
+//				}
+//				if (i == (Strikes.transform.childCount - 1))
+//				{
+//					for (int j = 0; j < Strikes.transform.childCount; j++)
+//					{
+//						Strikes.transform.GetChild (j).gameObject.SetActive (false);
+//					}
+//				}
+//			}
 			for (int i = 0; i < GameManager.strikesAllowed; i++)
 			{
 				if ((Lives.transform.GetChild (i).gameObject.activeInHierarchy)&&(Lives.transform.GetChild (i).gameObject.GetComponent<UnityEngine.UI.Image>().sprite!=DeadImage))
@@ -84,9 +84,9 @@ public class CollisionDetection : MonoBehaviour {
 				MainStatus.GetComponent<UnityEngine.UI.Text> ().text = "Game Ended";
 				GameEndPanel.SetActive (true);
 				LowerPanel.SetActive (false);
-				for (int i = 0; i < Strikes.transform.childCount; i++) {
-					Strikes.transform.GetChild (i).gameObject.SetActive (false);
-				}
+//				for (int i = 0; i < Strikes.transform.childCount; i++) {
+//					Strikes.transform.GetChild (i).gameObject.SetActive (false);
+//				}
 				GameManager.StartOrPauseGame ();
 			}
 		}
@@ -112,6 +112,9 @@ public class CollisionDetection : MonoBehaviour {
 			{
 				Lives.transform.GetChild (i).gameObject.SetActive (false);
 			}
+		}
+		for (int j = 0; j < BlackHole_GameObj.transform.childCount; j++) {
+			BlackHole_GameObj.transform.GetChild (j).gameObject.SetActive (false);
 		}
 		GameEndPanel.SetActive (false);
 		GameManager.StartOrPauseGame ();
