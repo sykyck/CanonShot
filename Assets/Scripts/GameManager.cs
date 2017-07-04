@@ -4,6 +4,7 @@ using System.Collections;
 public class GameManager : MonoBehaviour {
 	public static int score;
 	public static int strikesAllowed;
+	public static int maxstrikesAllowed;
 	public static int coinsCollected;
 	public static int strikes;
 	public static float totalPauseTime;
@@ -16,8 +17,8 @@ public class GameManager : MonoBehaviour {
 	public GameObject MainStatus;
 	public GameObject GameEndPanel;
 	public GameObject Lives;
-	public GameObject AliveImageReference;
-	public GameObject DeadImageReference;
+	public Sprite AliveImage;
+	public Sprite DeadImage;
 	public GameObject scoreText_GameObj;
 	public GameObject coinsText_GameObj;
 	public GameObject LowerPanel;
@@ -29,6 +30,7 @@ public class GameManager : MonoBehaviour {
 		score = 0;
 		strikes = 0;
 		strikesAllowed = 3;
+		maxstrikesAllowed = 5;
 		coinsCollected = 60;
 		scoreText = scoreText_GameObj.GetComponent<UnityEngine.UI.Text> ();
 		coinsText = coinsText_GameObj.GetComponent<UnityEngine.UI.Text> ();
@@ -53,16 +55,30 @@ public class GameManager : MonoBehaviour {
 		{
 			if (GameEndPanel.activeInHierarchy)
 			{
-				coinsCollected = coinsCollected - 60;
-				strikesAllowed = strikesAllowed + 1;
-				StartGameWithExtraLife ();
+				if (strikesAllowed<maxstrikesAllowed)
+				{
+					coinsCollected = coinsCollected - 60;
+					strikesAllowed = strikesAllowed + 1;
+					StartGameWithExtraLife ();
+				}
+				else
+				{
+					GameStatus.GetComponent<UnityEngine.UI.Text> ().text = "Cannot Have More than 5 Lives At A Time";
+				}
 			}
 			else 
 			{
-				coinsCollected = coinsCollected - 60;
-				strikesAllowed = strikesAllowed + 1;
-				GameManager.StartOrPauseGame ();
-				StartGameWithExtraLife ();
+				if (strikesAllowed<maxstrikesAllowed)
+				{
+					coinsCollected = coinsCollected - 60;
+					strikesAllowed = strikesAllowed + 1;
+					GameManager.StartOrPauseGame ();
+					StartGameWithExtraLife ();
+				}
+				else
+				{
+					MainStatus.GetComponent<UnityEngine.UI.Text> ().text = "Cannot Have More than 5 Lives At A Time";
+				}
 			}
 		} 
 		else 
@@ -80,20 +96,34 @@ public class GameManager : MonoBehaviour {
 
 	public void OnWatcHAdvertisementClick()
 	{
-		strikesAllowed = strikesAllowed + 1;
 		if (GameEndPanel.activeInHierarchy)
 		{
-			StartGameWithExtraLife ();
+		  if(strikesAllowed<maxstrikesAllowed)
+			{
+				strikesAllowed = strikesAllowed + 1;
+				StartGameWithExtraLife ();
+			}
+		   else
+			{
+				GameStatus.GetComponent<UnityEngine.UI.Text> ().text = "Cannot Have More than 5 Lives At A Time";
+			}
 		} 
 		else 
 		{
-			GameManager.StartOrPauseGame ();
-			StartGameWithExtraLife ();
+			if(strikesAllowed<maxstrikesAllowed)
+			{
+				strikesAllowed = strikesAllowed + 1;
+				GameManager.StartOrPauseGame ();
+				StartGameWithExtraLife ();
+			}
+		    else
+			{
+				MainStatus.GetComponent<UnityEngine.UI.Text> ().text = "Cannot Have More than 5 Lives At A Time";
+			}
 		}
 	}
     void StartGameWithExtraLife()
 	{
-		LowerPanel.SetActive (true);
 		if (GameEndPanel.activeInHierarchy) 
 		{
 			MainStatus.GetComponent<UnityEngine.UI.Text> ().text = "Extra Life Awarded";
@@ -101,26 +131,18 @@ public class GameManager : MonoBehaviour {
 			{
 				Strikes.transform.GetChild (j).gameObject.SetActive (true);
 			}
+			LowerPanel.SetActive (true);
 			for (int j = 0; j < Lives.transform.childCount; j++)
 			{
 				if (!Lives.transform.GetChild (j).gameObject.activeInHierarchy) 
 				{
 					Lives.transform.GetChild (j).gameObject.SetActive (true);
-					Lives.transform.GetChild (j).gameObject.GetComponent<UnityEngine.UI.Image> ().sprite = AliveImageReference.GetComponent<UnityEngine.UI.Image> ().sprite;
+					Lives.transform.GetChild (j).gameObject.GetComponent<UnityEngine.UI.Image> ().sprite = AliveImage;
 					break;
-				}
-				if (j == (Lives.transform.childCount-1))
-				{
-					for (int k = 0; k < Lives.transform.childCount; k++) 
-					{
-						Lives.transform.GetChild (k).gameObject.SetActive (false);
-					}
-					Lives.transform.GetChild (0).gameObject.SetActive (true);
-					Lives.transform.GetChild (0).gameObject.GetComponent<UnityEngine.UI.Image> ().sprite = AliveImageReference.GetComponent<UnityEngine.UI.Image> ().sprite;
 				}
 			}
 			GameEndPanel.SetActive (false);
-			GameManager.StartOrPauseGame ();
+			GameManager.StartOrPauseGame();
 		} 
 		else
 		{
@@ -130,17 +152,8 @@ public class GameManager : MonoBehaviour {
 				if (!Lives.transform.GetChild (j).gameObject.activeInHierarchy) 
 				{
 					Lives.transform.GetChild (j).gameObject.SetActive (true);
-					Lives.transform.GetChild (j).gameObject.GetComponent<UnityEngine.UI.Image> ().sprite = AliveImageReference.GetComponent<UnityEngine.UI.Image> ().sprite;
+					Lives.transform.GetChild (j).gameObject.GetComponent<UnityEngine.UI.Image> ().sprite = AliveImage;
 					break;
-				}
-				if (j == (Lives.transform.childCount-1))
-				{
-					for (int k = 0; k < Lives.transform.childCount; k++) 
-					{
-						Lives.transform.GetChild (k).gameObject.SetActive (false);
-					}
-					Lives.transform.GetChild (0).gameObject.SetActive (true);
-					Lives.transform.GetChild (0).gameObject.GetComponent<UnityEngine.UI.Image> ().sprite = AliveImageReference.GetComponent<UnityEngine.UI.Image> ().sprite;
 				}
 			}
 			GameManager.StartOrPauseGame ();

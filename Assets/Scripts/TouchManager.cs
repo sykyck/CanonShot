@@ -7,6 +7,9 @@ public class TouchManager : MonoBehaviour
 	public GameObject MainStatus;
 	public GameObject GameEndPanel;
 	public GameObject LowerPanel;
+	public GameObject Lives;
+	public Sprite AliveImage;
+	public Sprite DeadImage;
 	public static bool IsTouchValid;
     System.Collections.Generic.List<int> particleSystemChoosen;
 	void Start ()
@@ -130,14 +133,27 @@ public class TouchManager : MonoBehaviour
 	}
 	void StartGameWithIncreaseVortexSize()
 	{
-		LowerPanel.SetActive (true);
 		if (GameEndPanel.activeInHierarchy) 
 		{
 			GameManager.strikesAllowed = 3;
 			GameManager.score = 0;
 			GameManager.strikes = 0;
 			CanonRotatiion.rotationSpeedFactor = 50;
+			CanonBall.forceMultiplier = 100;
 			MainStatus.GetComponent<UnityEngine.UI.Text> ().text = "Vortex Size Increased";
+			LowerPanel.SetActive (true);
+			for (int i = 0; i < GameManager.maxstrikesAllowed; i++) 
+			{
+				if (i < (GameManager.strikesAllowed))
+				{
+					Lives.transform.GetChild (i).gameObject.SetActive(true);
+					Lives.transform.GetChild (i).gameObject.GetComponent<UnityEngine.UI.Image> ().sprite = AliveImage;
+				}
+				if (i >= (GameManager.strikesAllowed)) 
+				{
+					Lives.transform.GetChild (i).gameObject.SetActive (false);
+				}
+			}
 			GameEndPanel.SetActive (false);
 			GameManager.StartOrPauseGame ();
 		} 

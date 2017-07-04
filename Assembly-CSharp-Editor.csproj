@@ -75,6 +75,9 @@
  <Reference Include="UnityEngine.Analytics">
  <HintPath>/Volumes/A/Applications/Unity5.4.0/Unity.app/Contents/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
  </Reference>
+ <Reference Include="UIAddons">
+ <HintPath>/Volumes/C/Github Desktop/CanonShot/Assets/UIAddons/Plugins/UIAddons/UIAddons.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEditor.Graphs">
  <HintPath>/Volumes/A/Applications/Unity5.4.0/Unity.app/Contents/Managed/UnityEditor.Graphs.dll</HintPath>
  </Reference>
@@ -104,9 +107,6 @@
  </Reference>
  <Reference Include="UnityEditor.OSXStandalone.Extensions">
  <HintPath>/Volumes/A/Applications/Unity5.4.0/Unity.app/Contents/PlaybackEngines/MacStandaloneSupport/UnityEditor.OSXStandalone.Extensions.dll</HintPath>
- </Reference>
- <Reference Include="UIAddons">
- <HintPath>/Volumes/C/Github Desktop/CanonShot/Assets/UIAddons/Plugins/UIAddons/UIAddons.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>

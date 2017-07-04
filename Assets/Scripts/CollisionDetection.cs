@@ -9,8 +9,8 @@ public class CollisionDetection : MonoBehaviour {
 	public GameObject Canon_GameObj;
 	public GameObject Pause;
 	public GameObject Lives;
-	public GameObject DeadImageReference;
-	public GameObject AliveImageReference;
+	public Sprite DeadImage;
+	public Sprite AliveImage;
 	public GameObject LowerPanel;
 
 	// Use this for initialization
@@ -56,23 +56,24 @@ public class CollisionDetection : MonoBehaviour {
 					}
 				}
 			}
-			for (int i = 0; i < Lives.transform.childCount; i++)
+			for (int i = 0; i < GameManager.strikesAllowed; i++)
 			{
-				if ((Lives.transform.GetChild (i).gameObject.activeInHierarchy)&&(Lives.transform.GetChild (i).gameObject.GetComponent<UnityEngine.UI.Image>().sprite!=DeadImageReference.GetComponent<UnityEngine.UI.Image>().sprite))
+				if ((Lives.transform.GetChild (i).gameObject.activeInHierarchy)&&(Lives.transform.GetChild (i).gameObject.GetComponent<UnityEngine.UI.Image>().sprite!=DeadImage))
 				{
-					Lives.transform.GetChild (i).gameObject.GetComponent<UnityEngine.UI.Image>().sprite=DeadImageReference.GetComponent<UnityEngine.UI.Image>().sprite;
+					Lives.transform.GetChild (i).gameObject.GetComponent<UnityEngine.UI.Image>().sprite=DeadImage;
 					break;
 				}
-				if (i == (Lives.transform.childCount - 1))
+				if (i == (GameManager.strikesAllowed - 1))
 				{
-					for (int j = 0; j < Lives.transform.childCount; j++) 
+					if (GameManager.strikesAllowed == GameManager.maxstrikesAllowed) 
 					{
-						Lives.transform.GetChild (j).gameObject.GetComponent<UnityEngine.UI.Image> ().sprite = AliveImageReference.GetComponent<UnityEngine.UI.Image> ().sprite;
-						if ((GameManager.strikesAllowed - GameManager.strikes) < Lives.transform.childCount)
-						{
-							if (j == (GameManager.strikesAllowed - GameManager.strikes-1)) 
-							{
-								break;
+						for (int j = 0; j < Lives.transform.childCount; j++) {
+							if (j < 3) {
+								Lives.transform.GetChild (j).gameObject.SetActive (true);
+								Lives.transform.GetChild (j).gameObject.GetComponent<UnityEngine.UI.Image> ().sprite = AliveImage;
+							} else {
+								Lives.transform.GetChild (j).gameObject.SetActive (false);
+								Lives.transform.GetChild (j).gameObject.GetComponent<UnityEngine.UI.Image> ().sprite = AliveImage;
 							}
 						}
 					}
@@ -97,13 +98,15 @@ public class CollisionDetection : MonoBehaviour {
 		GameManager.score = 0;
 		GameManager.strikes = 0;
 		CanonRotatiion.rotationSpeedFactor = 50;
+		CanonBall.forceMultiplier = 100;
 		MainStatus.GetComponent<UnityEngine.UI.Text> ().text = "Game Started Again";
 		LowerPanel.SetActive (true);
-		for (int i = 0; i < Lives.transform.childCount; i++) 
+		for (int i = 0; i < GameManager.maxstrikesAllowed; i++) 
 		{
-			if (Lives.transform.GetChild (i).gameObject.activeInHierarchy)
+			if (i < (GameManager.strikesAllowed))
 			{
-				Lives.transform.GetChild (i).gameObject.GetComponent<UnityEngine.UI.Image> ().sprite = AliveImageReference.GetComponent<UnityEngine.UI.Image> ().sprite;
+				Lives.transform.GetChild (i).gameObject.GetComponent<UnityEngine.UI.Image> ().sprite = AliveImage;
+				Lives.transform.GetChild (i).gameObject.SetActive(true);
 			}
 			if (i >= (GameManager.strikesAllowed)) 
 			{

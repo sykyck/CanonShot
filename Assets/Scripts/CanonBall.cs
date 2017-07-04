@@ -9,10 +9,12 @@ public class CanonBall : MonoBehaviour {
 	public GameObject MainStatus;
 	public GameObject GameEndPanel;
 	public GameObject LowerPanel;
+	public GameObject Lives;
+	public Sprite AliveImage;
 	Vector3 initCanonPos;
 	bool disableIncreaseInForceMultiplier;
-	int shootIntervalMinLimit,shootIntervalMaxLimit,numberSelected,counter,optionToSelect,coinToDisappear,forceMultiplier,maxNumInScene;
-	public static int currentTotalNum,currentBallsNumInScene,currentCoinsNumInScene;
+	int shootIntervalMinLimit,shootIntervalMaxLimit,numberSelected,counter,optionToSelect,coinToDisappear,maxNumInScene;
+	public static int currentTotalNum,currentBallsNumInScene,currentCoinsNumInScene,forceMultiplier;
 	bool IsCanonRotating,IsCoinPresentInRandomPlayArea;
     GameObject BallReference,CoinReference;
 	System.Random randomObj;
@@ -309,13 +311,25 @@ public class CanonBall : MonoBehaviour {
 		
 	void StartGameWithLessShootSpeed()
 	{
-		LowerPanel.SetActive (true);
 		if (GameEndPanel.activeInHierarchy)
 		{
 			GameManager.strikesAllowed = 3;
 			GameManager.score = 0;
 			GameManager.strikes = 0;
 			MainStatus.GetComponent<UnityEngine.UI.Text> ().text = "Shoot Speed Decreased";
+			LowerPanel.SetActive (true);
+			for (int i = 0; i < GameManager.maxstrikesAllowed; i++) 
+			{
+				if (i < (GameManager.strikesAllowed))
+				{
+					Lives.transform.GetChild (i).gameObject.SetActive(true);
+					Lives.transform.GetChild (i).gameObject.GetComponent<UnityEngine.UI.Image> ().sprite = AliveImage;
+				}
+				if (i >= (GameManager.strikesAllowed)) 
+				{
+					Lives.transform.GetChild (i).gameObject.SetActive (false);
+				}
+			}
 			GameEndPanel.SetActive (false);
 			GameManager.StartOrPauseGame ();
 		} 
