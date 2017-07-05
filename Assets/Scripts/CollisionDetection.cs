@@ -84,6 +84,7 @@ public class CollisionDetection : MonoBehaviour {
 				MainStatus.GetComponent<UnityEngine.UI.Text> ().text = "Game Ended";
 				GameEndPanel.SetActive (true);
 				LowerPanel.SetActive (false);
+				Pause.GetComponent<UnityEngine.UI.Button> ().enabled = false;
 //				for (int i = 0; i < Strikes.transform.childCount; i++) {
 //					Strikes.transform.GetChild (i).gameObject.SetActive (false);
 //				}
@@ -100,6 +101,7 @@ public class CollisionDetection : MonoBehaviour {
 		CanonRotatiion.rotationSpeedFactor = 50;
 		CanonBall.forceMultiplier = 100;
 		MainStatus.GetComponent<UnityEngine.UI.Text> ().text = "Game Started Again";
+		Pause.GetComponent<UnityEngine.UI.Button> ().enabled = true;
 		LowerPanel.SetActive (true);
 		for (int i = 0; i < GameManager.maxstrikesAllowed; i++) 
 		{

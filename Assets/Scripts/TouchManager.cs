@@ -7,6 +7,7 @@ public class TouchManager : MonoBehaviour
 	public GameObject MainStatus;
 	public GameObject GameEndPanel;
 	public GameObject LowerPanel;
+	public GameObject Pause;
 	public GameObject Lives;
 	public Sprite AliveImage;
 	public Sprite DeadImage;
@@ -141,6 +142,7 @@ public class TouchManager : MonoBehaviour
 			CanonRotatiion.rotationSpeedFactor = 50;
 			CanonBall.forceMultiplier = 100;
 			MainStatus.GetComponent<UnityEngine.UI.Text> ().text = "Vortex Size Increased";
+			Pause.GetComponent<UnityEngine.UI.Button> ().enabled = true;
 			LowerPanel.SetActive (true);
 			for (int i = 0; i < GameManager.maxstrikesAllowed; i++) 
 			{

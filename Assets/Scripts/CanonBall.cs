@@ -10,6 +10,7 @@ public class CanonBall : MonoBehaviour {
 	public GameObject GameEndPanel;
 	public GameObject LowerPanel;
 	public GameObject Lives;
+	public GameObject Pause;
 	public GameObject BlackHole_GameObj;
 	public Sprite AliveImage;
 	Vector3 initCanonPos;
@@ -320,6 +321,7 @@ public class CanonBall : MonoBehaviour {
 			MainStatus.GetComponent<UnityEngine.UI.Text> ().text = "Shoot Speed Decreased";
 			LowerPanel.SetActive (true);
 			GameEndPanel.SetActive (false);
+			Pause.GetComponent<UnityEngine.UI.Button> ().enabled = true;
 			for (int i = 0; i < GameManager.maxstrikesAllowed; i++) 
 			{
 				if (i < (GameManager.strikesAllowed))

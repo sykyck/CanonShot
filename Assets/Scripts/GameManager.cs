@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour {
 	public GameObject MainStatus;
 	public GameObject GameEndPanel;
 	public GameObject Lives;
+	public GameObject Pause;
 	public Sprite AliveImage;
 	public Sprite DeadImage;
 	public GameObject scoreText_GameObj;
@@ -98,7 +99,9 @@ public class GameManager : MonoBehaviour {
 	public void ShowRewardedAd()
 	{
 		if (Advertisement.IsReady ("rewardedVideo")) {
-			GameManager.StartOrPauseGame ();
+			if (!GameEndPanel.activeInHierarchy) {
+				GameManager.StartOrPauseGame ();
+			}
 			var options = new ShowOptions { resultCallback = HandleShowResult };
 			Advertisement.Show ("rewardedVideo", options);
 		} else {
@@ -108,26 +111,26 @@ public class GameManager : MonoBehaviour {
 
 	private void HandleShowResult(ShowResult result)
 	{
+		GameManager.StartOrPauseGame ();
 		switch (result)
 		{
 			case ShowResult.Finished:
 				Debug.Log ("The ad was successfully shown.");
-		    	Invoke("OnWatcHAdvertisementClick",1f);
+		    	OnWatcHAdvertisementClick();
 				break;
 			case ShowResult.Skipped:
 				Debug.Log("The ad was skipped before reaching the end.");
-			    Invoke("OnWatcHAdvertisementClick",1f);
+			    OnWatcHAdvertisementClick();
 				break;
 			case ShowResult.Failed:
 				Debug.LogError("The ad failed to be shown.");
-			    Invoke("OnWatcHAdvertisementClick",1f);
+			    OnWatcHAdvertisementClick();
 				break;
 		}
 	}
 
    void OnWatcHAdvertisementClick()
 	{
-		GameManager.StartOrPauseGame ();
 		if (GameEndPanel.activeInHierarchy)
 		{
 		  if(strikesAllowed<maxstrikesAllowed)
@@ -145,7 +148,6 @@ public class GameManager : MonoBehaviour {
 			if(strikesAllowed<maxstrikesAllowed)
 			{
 				strikesAllowed = strikesAllowed + 1;
-				GameManager.StartOrPauseGame ();
 				StartGameWithExtraLife ();
 			}
 		    else
@@ -159,6 +161,7 @@ public class GameManager : MonoBehaviour {
 		if (GameEndPanel.activeInHierarchy) 
 		{
 			MainStatus.GetComponent<UnityEngine.UI.Text> ().text = "Extra Life Awarded";
+			Pause.GetComponent<UnityEngine.UI.Button> ().enabled = true;
 //			for (int j = 0; j < Strikes.transform.childCount; j++) 
 //			{
 //				Strikes.transform.GetChild (j).gameObject.SetActive (true);
@@ -177,7 +180,7 @@ public class GameManager : MonoBehaviour {
 				BlackHole_GameObj.transform.GetChild (j).gameObject.SetActive (false);
 			}
 			GameEndPanel.SetActive (false);
-			GameManager.StartOrPauseGame();
+			GameManager.StartOrPauseGame ();
 		} 
 		else
 		{
