@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Advertisements;
 using System.Collections;
-
+using UnityEngine.UI;
 public class GameManager : MonoBehaviour {
 	public static int score;
 	public static int strikesAllowed;
@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour {
 	public GameObject Strikes;
 	public GameObject MainStatus;
 	public GameObject GameEndPanel;
+	public GameObject GameResumePanel;
 	public GameObject Lives;
 	public GameObject Pause;
 	public Sprite AliveImage;
@@ -65,7 +66,7 @@ public class GameManager : MonoBehaviour {
 				}
 				else
 				{
-					GameStatus.GetComponent<UnityEngine.UI.Text> ().text = "Cannot Have More than 5 Lives At A Time";
+					GameStatus.GetComponent<Text> ().text = "Cannot Have More than 5 Lives At A Time";
 				}
 			}
 			else 
@@ -79,7 +80,7 @@ public class GameManager : MonoBehaviour {
 				}
 				else
 				{
-					MainStatus.GetComponent<UnityEngine.UI.Text> ().text = "Cannot Have More than 5 Lives At A Time";
+					MainStatus.GetComponent<Text> ().text = "Cannot Have More than 5 Lives At A Time";
 				}
 			}
 		} 
@@ -111,7 +112,6 @@ public class GameManager : MonoBehaviour {
 
 	private void HandleShowResult(ShowResult result)
 	{
-		GameManager.StartOrPauseGame ();
 		switch (result)
 		{
 			case ShowResult.Finished:
@@ -161,12 +161,12 @@ public class GameManager : MonoBehaviour {
 		if (GameEndPanel.activeInHierarchy) 
 		{
 			MainStatus.GetComponent<UnityEngine.UI.Text> ().text = "Extra Life Awarded";
-			Pause.GetComponent<UnityEngine.UI.Button> ().enabled = true;
+			Pause.GetComponent<UnityEngine.UI.Button> ().enabled = false;
+			GameResumePanel.SetActive (true);
 //			for (int j = 0; j < Strikes.transform.childCount; j++) 
 //			{
 //				Strikes.transform.GetChild (j).gameObject.SetActive (true);
 //			}
-			LowerPanel.SetActive (true);
 			for (int j = 0; j < Lives.transform.childCount; j++)
 			{
 				if (!Lives.transform.GetChild (j).gameObject.activeInHierarchy) 
@@ -180,11 +180,13 @@ public class GameManager : MonoBehaviour {
 				BlackHole_GameObj.transform.GetChild (j).gameObject.SetActive (false);
 			}
 			GameEndPanel.SetActive (false);
-			GameManager.StartOrPauseGame ();
 		} 
 		else
 		{
 			MainStatus.GetComponent<UnityEngine.UI.Text> ().text = "Extra Life Awarded";
+			Pause.GetComponent<UnityEngine.UI.Button> ().enabled = false;
+			GameResumePanel.SetActive (true);
+			LowerPanel.SetActive (false);
 			for (int j = 0; j < Lives.transform.childCount; j++)
 			{
 				if (!Lives.transform.GetChild (j).gameObject.activeInHierarchy) 
@@ -194,7 +196,6 @@ public class GameManager : MonoBehaviour {
 					break;
 				}
 			}
-			GameManager.StartOrPauseGame ();
 		}
 	}	
 	public static void StartOrPauseGame()
@@ -222,6 +223,15 @@ public class GameManager : MonoBehaviour {
 
 	public void OnPauseButtonClick()
 	{
+		if (!pause) {
+			Pause.GetComponent<UnityEngine.UI.Button> ().enabled = false;
+			GameResumePanel.SetActive (true);
+			LowerPanel.SetActive (false);
+		} else {
+			Pause.GetComponent<UnityEngine.UI.Button> ().enabled = true;
+			GameResumePanel.SetActive (false);
+			LowerPanel.SetActive (true);
+		}
 		StartOrPauseGame ();
 	}
 		

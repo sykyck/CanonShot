@@ -6,17 +6,20 @@ public class TouchManager : MonoBehaviour
 	public GameObject GameStatus;
 	public GameObject MainStatus;
 	public GameObject GameEndPanel;
+	public GameObject GameResumePanel;
 	public GameObject LowerPanel;
 	public GameObject Pause;
 	public GameObject Lives;
 	public Sprite AliveImage;
 	public Sprite DeadImage;
 	public static bool IsTouchValid;
+	bool IsParticleSystemChoosen;
     System.Collections.Generic.List<int> particleSystemChoosen;
 	void Start ()
 	{
 		GameManager.BlackHole_GameObj = gameObject;
 		IsTouchValid = false;
+		IsParticleSystemChoosen = true;
 		particleSystemChoosen = new System.Collections.Generic.List<int> ();
 	}
 
@@ -36,15 +39,21 @@ public class TouchManager : MonoBehaviour
 						particleSystemChoosen.Add (i);
 						break;
 					}
+					if (i == (gameObject.transform.childCount - 1)) {
+						IsParticleSystemChoosen = false;
+					}
 				}
 			}
 		}
 		if (Input.GetMouseButtonUp (0))
 		{
-			if (IsTouchValid)
+			if ((IsTouchValid)&&(IsParticleSystemChoosen))
 			{
-				Invoke ("makeParticleSystemInactive",1.5f);
+				Invoke ("makeParticleSystemInactive",1f);
 				IsTouchValid = false;
+			}
+			if (!IsParticleSystemChoosen) {
+				IsParticleSystemChoosen = true;
 			}
 		}
 		if (Input.touchCount > 0)
@@ -64,13 +73,21 @@ public class TouchManager : MonoBehaviour
 							    particleSystemChoosen.Add (i);
 								break;
 							}
+							if (i == (gameObject.transform.childCount - 1)) {
+								IsParticleSystemChoosen = false;
+							}
 						}
 						break;
 				    case TouchPhase.Moved:
 						break;
-				    case TouchPhase.Ended:
-						IsTouchValid = false;
-					    Invoke ("makeParticleSystemInactive",1.5f);
+				case TouchPhase.Ended:
+						if ((IsTouchValid) && (IsParticleSystemChoosen)) {
+							IsTouchValid = false;
+							Invoke ("makeParticleSystemInactive", 1f);
+						}
+						if (!IsParticleSystemChoosen) {
+							IsParticleSystemChoosen = true;
+						}
 						break;
 				}
 			}
@@ -78,10 +95,10 @@ public class TouchManager : MonoBehaviour
 	}
 	void makeParticleSystemInactive()
 	{
-		if (gameObject.transform.GetChild (particleSystemChoosen [0]).gameObject.activeInHierarchy)
-		{
-			gameObject.transform.GetChild (particleSystemChoosen [0]).gameObject.SetActive (false);
-		}
+		if (gameObject.transform.GetChild (particleSystemChoosen [0]).gameObject.activeInHierarchy) 
+	       {
+		    	gameObject.transform.GetChild (particleSystemChoosen [0]).gameObject.SetActive (false);
+		   }
 		particleSystemChoosen.Remove (particleSystemChoosen [0]);
 	}
 
@@ -106,7 +123,7 @@ public class TouchManager : MonoBehaviour
 				GameManager.coinsCollected = GameManager.coinsCollected - 20;
 				for (int i = 0; i < gameObject.transform.childCount; i++)
 				{
-					gameObject.transform.GetChild (i).gameObject.transform.localScale += new Vector3 (1f, 1f, 0f);
+					gameObject.transform.GetChild (i).gameObject.transform.localScale += new Vector3 (0.2f, 0.2f, 0f);
 					gameObject.transform.GetChild (i).gameObject.GetComponent<ParticleSystem> ().startSize += 1;
 				}
 				Invoke ("DecreaseVortexSizeAfterFixedTime", 30f);
@@ -128,7 +145,7 @@ public class TouchManager : MonoBehaviour
 	void DecreaseVortexSizeAfterFixedTime()
 	{
 		for (int i = 0; i < gameObject.transform.childCount; i++) {
-			gameObject.transform.GetChild (i).gameObject.transform.localScale = new Vector3 (0.4f, 0.4f, 1f);
+			gameObject.transform.GetChild (i).gameObject.transform.localScale = new Vector3 (0.3f, 0.3f, 1f);
 			gameObject.transform.GetChild (i).gameObject.GetComponent<ParticleSystem> ().startSize = 3;
 		}
 	}
@@ -142,8 +159,8 @@ public class TouchManager : MonoBehaviour
 			CanonRotatiion.rotationSpeedFactor = 50;
 			CanonBall.forceMultiplier = 100;
 			MainStatus.GetComponent<UnityEngine.UI.Text> ().text = "Vortex Size Increased";
-			Pause.GetComponent<UnityEngine.UI.Button> ().enabled = true;
-			LowerPanel.SetActive (true);
+			Pause.GetComponent<UnityEngine.UI.Button> ().enabled = false;
+			GameResumePanel.SetActive (true);
 			for (int i = 0; i < GameManager.maxstrikesAllowed; i++) 
 			{
 				if (i < (GameManager.strikesAllowed))
@@ -160,12 +177,13 @@ public class TouchManager : MonoBehaviour
 				GameManager.BlackHole_GameObj.transform.GetChild (j).gameObject.SetActive (false);
 			}
 			GameEndPanel.SetActive (false);
-			GameManager.StartOrPauseGame ();
 		} 
 		else
 		{
 			MainStatus.GetComponent<UnityEngine.UI.Text> ().text = "Vortex Size Increased";
-			GameManager.StartOrPauseGame ();
+			Pause.GetComponent<UnityEngine.UI.Button> ().enabled = false;
+			GameResumePanel.SetActive (true);
+			LowerPanel.SetActive (false);
 		}
 	}
 		

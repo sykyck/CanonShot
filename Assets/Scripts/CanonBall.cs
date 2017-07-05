@@ -8,6 +8,7 @@ public class CanonBall : MonoBehaviour {
 	public GameObject GameStatus;
 	public GameObject MainStatus;
 	public GameObject GameEndPanel;
+	public GameObject GameResumePanel;
 	public GameObject LowerPanel;
 	public GameObject Lives;
 	public GameObject Pause;
@@ -32,7 +33,7 @@ public class CanonBall : MonoBehaviour {
 		maxNumInScene = 20;
 		counter = 0;
 		shootIntervalMinLimit = 5;
-		shootIntervalMaxLimit = 40;
+		shootIntervalMaxLimit = 30;
 		disableIncreaseInForceMultiplier = false;
 		InvokeRepeating ("IncreaseForceMultiplier", 0f, 15f);
 		numberSelected = randomObj.Next (shootIntervalMinLimit, shootIntervalMaxLimit);
@@ -88,7 +89,7 @@ public class CanonBall : MonoBehaviour {
 	void IncreaseForceMultiplier()
 	{
 		if ((forceMultiplier < 1000)&&(!disableIncreaseInForceMultiplier)) {
-			forceMultiplier += 20;
+			forceMultiplier += 50;
 		}
 	}
 	void shootBall()
@@ -233,7 +234,12 @@ public class CanonBall : MonoBehaviour {
 			Invoke ("shootBall", 0.1f);
 		}
 		if (optionToSelect == 2) {
-			Invoke ("shootCoin", 0.1f);
+			optionToSelect = Option.Next (1, 4);
+			if (optionToSelect == 2) {
+				Invoke ("shootCoin", 0.1f);
+			} else {
+				Invoke ("shootBall", 0.1f);
+			}
 		}
 	}
 	void StartCanonRotation()
@@ -319,9 +325,9 @@ public class CanonBall : MonoBehaviour {
 			GameManager.score = 0;
 			GameManager.strikes = 0;
 			MainStatus.GetComponent<UnityEngine.UI.Text> ().text = "Shoot Speed Decreased";
-			LowerPanel.SetActive (true);
 			GameEndPanel.SetActive (false);
-			Pause.GetComponent<UnityEngine.UI.Button> ().enabled = true;
+			Pause.GetComponent<UnityEngine.UI.Button> ().enabled = false;
+			GameResumePanel.SetActive(true);
 			for (int i = 0; i < GameManager.maxstrikesAllowed; i++) 
 			{
 				if (i < (GameManager.strikesAllowed))
@@ -338,12 +344,13 @@ public class CanonBall : MonoBehaviour {
 			{
 				GameManager.BlackHole_GameObj.transform.GetChild (j).gameObject.SetActive (false);
 			}
-			GameManager.StartOrPauseGame ();
 		} 
 		else
 		{
 			MainStatus.GetComponent<UnityEngine.UI.Text> ().text = "Shoot Speed Decreased";
-			GameManager.StartOrPauseGame ();
+			Pause.GetComponent<UnityEngine.UI.Button> ().enabled = false;
+			GameResumePanel.SetActive(true);
+			LowerPanel.SetActive (false);
 		}
 	}
 }
