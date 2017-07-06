@@ -16,7 +16,7 @@ public class CanonBall : MonoBehaviour {
 	public Sprite AliveImage;
 	Vector3 initCanonPos;
 	bool disableIncreaseInForceMultiplier;
-	int shootIntervalMinLimit,shootIntervalMaxLimit,numberSelected,counter,optionToSelect,coinToDisappear,maxNumInScene;
+	int shootIntervalMinLimit,shootIntervalMaxLimit,numberSelected,counter,optionToSelect,coinToDisappear,maxNumInScene,optionToSelect1;
 	public static int currentTotalNum,currentBallsNumInScene,currentCoinsNumInScene,forceMultiplier;
 	bool IsCanonRotating,IsCoinPresentInRandomPlayArea;
     GameObject BallReference,CoinReference;
@@ -33,7 +33,7 @@ public class CanonBall : MonoBehaviour {
 		maxNumInScene = 20;
 		counter = 0;
 		shootIntervalMinLimit = 5;
-		shootIntervalMaxLimit = 30;
+		shootIntervalMaxLimit = 40;
 		disableIncreaseInForceMultiplier = false;
 		InvokeRepeating ("IncreaseForceMultiplier", 0f, 15f);
 		numberSelected = randomObj.Next (shootIntervalMinLimit, shootIntervalMaxLimit);
@@ -48,7 +48,7 @@ public class CanonBall : MonoBehaviour {
 	void Update ()
 	{
 		
-		if ((IsCanonRotating)&&(CanonRotatiion.canCanonShoot)&&(!IsCoinPresentInRandomPlayArea))
+		if ((IsCanonRotating)&&(CanonRotatiion.canCanonShoot)&&(!IsCoinPresentInRandomPlayArea)&&(!CheckCollision.objcollided))
 		{
 			counter = counter + 1;
 			if ((currentTotalNum<maxNumInScene)&&(counter == numberSelected))
@@ -73,23 +73,23 @@ public class CanonBall : MonoBehaviour {
 			if (currentBallsNumInScene == Balls.transform.childCount) {
 				for (int i = 0; i < Balls.transform.childCount; i++) {
 					Balls.transform.GetChild (i).gameObject.SetActive (false);
+				}
 					currentTotalNum = currentTotalNum - currentBallsNumInScene;
 					currentBallsNumInScene = 0;
-				}
 			}
 			if (currentCoinsNumInScene == Coins.transform.childCount) {
 				for (int i = 0; i < Coins.transform.childCount; i++) {
 					Coins.transform.GetChild (i).gameObject.SetActive (false);
+				}
 					currentTotalNum = currentTotalNum - currentCoinsNumInScene;
 					currentCoinsNumInScene = 0;
-				}
 			}
 		}
 	}
 	void IncreaseForceMultiplier()
 	{
 		if ((forceMultiplier < 1000)&&(!disableIncreaseInForceMultiplier)) {
-			forceMultiplier += 50;
+			forceMultiplier += 20;
 		}
 	}
 	void shootBall()
@@ -149,6 +149,7 @@ public class CanonBall : MonoBehaviour {
 			}
 			if(i==Coins.transform.childCount-1)
 			{
+				Debug.Log ("Inside Shoot Ball i==");
 				for (int j = 0; j < Coins.transform.childCount; j++)
 				{
 					Coins.transform.GetChild (j).gameObject.SetActive (false);
@@ -234,10 +235,10 @@ public class CanonBall : MonoBehaviour {
 			Invoke ("shootBall", 0.1f);
 		}
 		if (optionToSelect == 2) {
-			optionToSelect = Option.Next (1, 4);
-			if (optionToSelect == 2) {
+			optionToSelect1 = Option.Next (1, 4);
+			if (optionToSelect1 == 2) {
 				Invoke ("shootCoin", 0.1f);
-			} else {
+			}  else {
 				Invoke ("shootBall", 0.1f);
 			}
 		}

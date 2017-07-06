@@ -12,7 +12,7 @@ public class CanonRotatiion : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
 	{
-		rotationSpeedFactor = 150;
+		rotationSpeedFactor = 50;
 		timesCanonCanShot = 1;
 		canCanonShoot = true;
 		Canon = gameObject;

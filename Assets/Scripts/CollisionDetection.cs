@@ -12,7 +12,6 @@ public class CollisionDetection : MonoBehaviour {
 	public Sprite DeadImage;
 	public Sprite AliveImage;
 	public GameObject LowerPanel;
-	Vector3 VortexCollidedPos;
 
 	// Use this for initialization
 	void Start () {
@@ -26,6 +25,7 @@ public class CollisionDetection : MonoBehaviour {
 	{
 		if ((collision.gameObject.name == "CanonBall") || (collision.gameObject.name == "CoinPrefab"))
 		{
+			Debug.Log ("CanonBall or CoinPrefab collided");
 			collision.gameObject.GetComponent<Rigidbody2D>().Sleep ();
 			collision.gameObject.SetActive (false);
 			if (collision.gameObject.name == "CanonBall") 
@@ -93,12 +93,6 @@ public class CollisionDetection : MonoBehaviour {
 				GameManager.StartOrPauseGame ();
 			}
 		}
-	}
-	void makeCollidedObjectDisappear(GameObject Obj,Vector3 collidedPos)
-	{
-		Obj.transform.localScale = new Vector3 (0.5f, 0.5f, 1f);
-		Obj.transform.position=Vector3.MoveTowards (Obj.transform.position, collidedPos, Vector3.Distance (Obj.transform.position, collidedPos));
-		Obj.SetActive (false);
 	}
 
 	public void BackButton()
