@@ -7,11 +7,13 @@ public class CheckCollision : MonoBehaviour
 	System.Collections.Generic.List<GameObject> CollidedObj;
 	public static bool objcollided;
 	public int noofcollisions;
+	Vector3 initPos;
 	// Use this for initialization
 	void Start () 
 	{
 	  noofcollisions = 0;
 	  CollidedObj = new System.Collections.Generic.List<GameObject> ();
+		initPos = GameManager.Canon_GameObj.transform.position;
 	}
 	
 	// Update is called once per frame
@@ -32,8 +34,7 @@ public class CheckCollision : MonoBehaviour
 			{
 				Invoke ("scaleDownCollidedObject", (i*0.1f));
 			}
-			Invoke ("makeCollidedObjectDisappear", 0.6f);
-//			collision.gameObject.SetActive (false);
+			Invoke ("makeCollidedObjectDisappear", 0.7f);
 			if (collision.gameObject.name == "CanonBall")
 			{
 				GameManager.score = GameManager.score + 1;
@@ -50,10 +51,10 @@ public class CheckCollision : MonoBehaviour
 	}
 	void scaleDownCollidedObject()
 	{
-		if (CollidedObj[0].name == "CanonBall") {
+		if ((CollidedObj[0].name == "CanonBall")&&(CollidedObj[0].transform.localScale.x>0)&&(CollidedObj[0].transform.localScale.y>0)&&(CollidedObj[0].transform.localScale.z>0)) {
 			CollidedObj[0].transform.localScale -= new Vector3 (0.01f, 0.01f, 0.01f);
 		}
-		if (CollidedObj[0].name == "CoinPrefab") {
+		if ((CollidedObj[0].name == "CoinPrefab")&&(CollidedObj[0].transform.localScale.x>0)&&(CollidedObj[0].transform.localScale.y>0)&&(CollidedObj[0].transform.localScale.z>0)) {
 			CollidedObj[0].transform.localScale -= new Vector3 (0.2f, 0.2f, 0.2f);
 		}
 		CollidedObj[0].transform.position = Vector3.MoveTowards (CollidedObj[0].transform.position, gameObject.transform.position, (Vector3.Distance (CollidedObj[0].transform.position, gameObject.transform.position)/5f));
@@ -61,7 +62,9 @@ public class CheckCollision : MonoBehaviour
 	void makeCollidedObjectDisappear()
 	{
 		objcollided = false;
+		CollidedObj [0].transform.position = initPos;
 		CollidedObj[0].SetActive (false);
+		Debug.Log ("CollidedObj[0] MADE INACTIVE");
 		gameObject.GetComponent<PolygonCollider2D> ().enabled = true;
 		if (CollidedObj[0].name == "CanonBall") {
 			CollidedObj[0].transform.localScale = new Vector3 (0.05f, 0.05f, 0.05f);

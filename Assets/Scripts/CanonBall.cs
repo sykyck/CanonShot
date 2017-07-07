@@ -13,10 +13,12 @@ public class CanonBall : MonoBehaviour {
 	public GameObject Lives;
 	public GameObject Pause;
 	public GameObject BlackHole_GameObj;
+	public GameObject CoinAppearParticleSystem;
 	public Sprite AliveImage;
 	Vector3 initCanonPos;
 	bool disableIncreaseInForceMultiplier;
 	int shootIntervalMinLimit,shootIntervalMaxLimit,numberSelected,counter,optionToSelect,coinToDisappear,maxNumInScene,optionToSelect1;
+	float canonCounter;
 	public static int currentTotalNum,currentBallsNumInScene,currentCoinsNumInScene,forceMultiplier;
 	bool IsCanonRotating,IsCoinPresentInRandomPlayArea;
     GameObject BallReference,CoinReference;
@@ -30,6 +32,7 @@ public class CanonBall : MonoBehaviour {
 		Option = new System.Random();
 		SpawnPointObj= new System.Random();
 		forceMultiplier = 100;
+		canonCounter = 0f;
 		maxNumInScene = 20;
 		counter = 0;
 		shootIntervalMinLimit = 5;
@@ -46,8 +49,11 @@ public class CanonBall : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update ()
-	{
-		
+	{	
+		if (!IsCanonRotating) {
+			canonCounter += Time.deltaTime / 1f;
+			gameObject.transform.position = Vector3.Lerp (transform.position, initCanonPos, canonCounter);
+		}
 		if ((IsCanonRotating)&&(CanonRotatiion.canCanonShoot)&&(!IsCoinPresentInRandomPlayArea)&&(!CheckCollision.objcollided))
 		{
 			counter = counter + 1;
@@ -101,11 +107,12 @@ public class CanonBall : MonoBehaviour {
 				BallReference = Balls.transform.GetChild (i).gameObject;
 				BallReference.transform.position = transform.position;
 				BallReference.SetActive (true);
+				Debug.Log ("Ball Choosen-" + System.Convert.ToString (i)+"MADE ACTIVE");
 				currentBallsNumInScene = currentBallsNumInScene + 1;
 				currentTotalNum = currentTotalNum + 1;
 				BallReference.GetComponent<Rigidbody2D> ().AddForce (Quaternion.Euler (0, 0, transform.rotation.eulerAngles.z) * (Vector3.up) * 1 * forceMultiplier);
-				gameObject.GetComponent<Rigidbody2D> ().AddForce (Quaternion.Euler (0, 0, transform.rotation.eulerAngles.z) * (Vector3.up) * -1 * forceMultiplier);
-				Invoke ("PlaceCanonAtInitPos", 0.3f);
+				gameObject.GetComponent<Rigidbody2D> ().AddForce (Quaternion.Euler (0, 0, transform.rotation.eulerAngles.z) * (Vector3.up) * -5 * 300);
+				Invoke ("PlaceCanonAtInitPos", 0.4f);
 				break;
 			}
 			if(i==Balls.transform.childCount-1)
@@ -120,16 +127,17 @@ public class CanonBall : MonoBehaviour {
 				currentTotalNum = currentTotalNum - currentBallsNumInScene + 1;
 				currentBallsNumInScene = 1;
 				BallReference.GetComponent<Rigidbody2D> ().AddForce (Quaternion.Euler (0, 0, transform.rotation.eulerAngles.z) * (Vector3.up) * 1 * forceMultiplier);
-				gameObject.GetComponent<Rigidbody2D> ().AddForce (Quaternion.Euler (0, 0, transform.rotation.eulerAngles.z) * (Vector3.up) * -1 * forceMultiplier);
-				Invoke ("PlaceCanonAtInitPos", 0.3f);
+				gameObject.GetComponent<Rigidbody2D> ().AddForce (Quaternion.Euler (0, 0, transform.rotation.eulerAngles.z) * (Vector3.up) * -5 * 300);
+				Invoke ("PlaceCanonAtInitPos", 0.4f);
 			}
 		}
-		Invoke("StartCanonRotation",1f);
+		Invoke("StartCanonRotation",1.4f);
 	}
 	void PlaceCanonAtInitPos()
 	{
 		gameObject.GetComponent<Rigidbody2D> ().Sleep ();
-		gameObject.transform.position = Vector3.MoveTowards (transform.position, initCanonPos,Vector3.Distance(transform.position,initCanonPos));
+//		gameObject.transform.position = Vector3.MoveTowards (transform.position, initCanonPos,Vector3.Distance(transform.position,initCanonPos));
+//		gameObject.transform.position = Vector3.Lerp (transform.position, initCanonPos,2f);
 	}
 	void shootCoin()
 	{
@@ -140,11 +148,12 @@ public class CanonBall : MonoBehaviour {
 				CoinReference = Coins.transform.GetChild (i).gameObject;
 				CoinReference.transform.position = transform.position;
 				CoinReference.SetActive (true);
+				Debug.Log ("COIN Choosen-" + System.Convert.ToString (i)+"MADE ACTIVE");
 				currentCoinsNumInScene = currentCoinsNumInScene + 1;
 				currentTotalNum = currentTotalNum + 1;
 				CoinReference.GetComponent<Rigidbody2D> ().AddForce (Quaternion.Euler (0, 0, transform.rotation.eulerAngles.z) * (Vector3.up) * 1 * forceMultiplier);
-				gameObject.GetComponent<Rigidbody2D> ().AddForce (Quaternion.Euler (0, 0, transform.rotation.eulerAngles.z) * (Vector3.up) * -1 * forceMultiplier);
-				Invoke ("PlaceCanonAtInitPos", 0.3f);
+				gameObject.GetComponent<Rigidbody2D> ().AddForce (Quaternion.Euler (0, 0, transform.rotation.eulerAngles.z) * (Vector3.up) * -5 * 300);
+				Invoke ("PlaceCanonAtInitPos", 0.4f);
 				break;
 			}
 			if(i==Coins.transform.childCount-1)
@@ -160,11 +169,11 @@ public class CanonBall : MonoBehaviour {
 				currentTotalNum = currentTotalNum - currentCoinsNumInScene + 1;
 				currentCoinsNumInScene = 1;
 				CoinReference.GetComponent<Rigidbody2D> ().AddForce (Quaternion.Euler (0, 0, transform.rotation.eulerAngles.z) * (Vector3.up) * 1 * forceMultiplier);
-				gameObject.GetComponent<Rigidbody2D> ().AddForce (Quaternion.Euler (0, 0, transform.rotation.eulerAngles.z) * (Vector3.up) * -1 * forceMultiplier);
-				Invoke ("PlaceCanonAtInitPos", 0.3f);
+				gameObject.GetComponent<Rigidbody2D> ().AddForce (Quaternion.Euler (0, 0, transform.rotation.eulerAngles.z) * (Vector3.up) * -5 * 300);
+				Invoke ("PlaceCanonAtInitPos", 0.4f);
 			}
 		}
-		Invoke("StartCanonRotation",1f);
+		Invoke("StartCanonRotation",1.4f);
 	}
     void PlaceCoinAtRandomPlayarea()
 	{
@@ -192,10 +201,12 @@ public class CanonBall : MonoBehaviour {
 						CoinReference = Coins.transform.GetChild (i).gameObject;
 						CoinReference.transform.position = pointerPosition;
 						CoinReference.SetActive (true);
+						CoinAppearParticleSystem.transform.position = pointerPosition;
+						CoinAppearParticleSystem.SetActive (true);
 						currentCoinsNumInScene = currentCoinsNumInScene + 1;
 						currentTotalNum = currentTotalNum + 1;
 						coinToDisappear = i;
-						Invoke ("MakeCoinDisappear", 1f);
+						Invoke ("MakeCoinDisappear", 2f);
 						break;
 					}
 					if(i==Coins.transform.childCount-1)
@@ -207,10 +218,12 @@ public class CanonBall : MonoBehaviour {
 						CoinReference = Coins.transform.GetChild (0).gameObject;
 						CoinReference.transform.position = pointerPosition;
 						CoinReference.SetActive (true);
+						CoinAppearParticleSystem.transform.position = pointerPosition;
+						CoinAppearParticleSystem.SetActive (true);
 						currentTotalNum = currentTotalNum - currentCoinsNumInScene + 1;
 						currentCoinsNumInScene = 1;
 						coinToDisappear = 0;
-						Invoke ("MakeCoinDisappear", 1f);
+						Invoke ("MakeCoinDisappear", 2f);
 					}
 				}
 			}
@@ -226,6 +239,7 @@ public class CanonBall : MonoBehaviour {
 			currentCoinsNumInScene = currentCoinsNumInScene - 1;
 			currentTotalNum = currentTotalNum - 1;
 		}
+		CoinAppearParticleSystem.SetActive (false);
 	}
 	void StopCanonRotation()
 	{
@@ -247,6 +261,7 @@ public class CanonBall : MonoBehaviour {
 	{
 		gameObject.GetComponent<CanonRotatiion>().enabled = true;
 		IsCanonRotating = true;
+		canonCounter = 0f;
 	}
 	public static void CheckIfTouchIsValid(float clickPosition_x,float clickPosition_y)
 	{

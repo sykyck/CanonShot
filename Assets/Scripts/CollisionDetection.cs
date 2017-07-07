@@ -81,7 +81,7 @@ public class CollisionDetection : MonoBehaviour {
 					}
 				}
 			}
-			if (GameManager.strikes == GameManager.strikesAllowed)
+			if (GameManager.strikes == 100)
 			{
 				MainStatus.GetComponent<UnityEngine.UI.Text> ().text = "Game Ended";
 				GameEndPanel.SetActive (true);
