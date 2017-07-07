@@ -107,7 +107,6 @@ public class CanonBall : MonoBehaviour {
 				BallReference = Balls.transform.GetChild (i).gameObject;
 				BallReference.transform.position = transform.position;
 				BallReference.SetActive (true);
-				Debug.Log ("Ball Choosen-" + System.Convert.ToString (i)+"MADE ACTIVE");
 				currentBallsNumInScene = currentBallsNumInScene + 1;
 				currentTotalNum = currentTotalNum + 1;
 				BallReference.GetComponent<Rigidbody2D> ().AddForce (Quaternion.Euler (0, 0, transform.rotation.eulerAngles.z) * (Vector3.up) * 1 * forceMultiplier);
@@ -148,7 +147,6 @@ public class CanonBall : MonoBehaviour {
 				CoinReference = Coins.transform.GetChild (i).gameObject;
 				CoinReference.transform.position = transform.position;
 				CoinReference.SetActive (true);
-				Debug.Log ("COIN Choosen-" + System.Convert.ToString (i)+"MADE ACTIVE");
 				currentCoinsNumInScene = currentCoinsNumInScene + 1;
 				currentTotalNum = currentTotalNum + 1;
 				CoinReference.GetComponent<Rigidbody2D> ().AddForce (Quaternion.Euler (0, 0, transform.rotation.eulerAngles.z) * (Vector3.up) * 1 * forceMultiplier);

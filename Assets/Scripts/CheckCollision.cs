@@ -64,7 +64,6 @@ public class CheckCollision : MonoBehaviour
 		objcollided = false;
 		CollidedObj [0].transform.position = initPos;
 		CollidedObj[0].SetActive (false);
-		Debug.Log ("CollidedObj[0] MADE INACTIVE");
 		gameObject.GetComponent<PolygonCollider2D> ().enabled = true;
 		if (CollidedObj[0].name == "CanonBall") {
 			CollidedObj[0].transform.localScale = new Vector3 (0.05f, 0.05f, 0.05f);

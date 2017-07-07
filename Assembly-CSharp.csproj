@@ -45,6 +45,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\GPGSIds.cs" />
      <Compile Include="Assets\Scripts\CanonBall.cs" />
      <Compile Include="Assets\Scripts\CanonRotatiion.cs" />
      <Compile Include="Assets\Scripts\ChangeCollider.cs" />
