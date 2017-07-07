@@ -15,6 +15,7 @@ public class CanonBall : MonoBehaviour {
 	public GameObject BlackHole_GameObj;
 	public GameObject CoinAppearParticleSystem;
 	public Sprite AliveImage;
+	public GameObject Smoke;
 	Vector3 initCanonPos;
 	bool disableIncreaseInForceMultiplier;
 	int shootIntervalMinLimit,shootIntervalMaxLimit,numberSelected,counter,optionToSelect,coinToDisappear,maxNumInScene,optionToSelect1;
