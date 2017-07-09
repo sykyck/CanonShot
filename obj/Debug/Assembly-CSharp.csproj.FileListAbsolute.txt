@@ -21,3 +21,6 @@ C:\Users\geniu\Documents\Github\CanonShot\Temp\bin\Debug\UnityEngine.UI.xml
 C:\Users\geniu\Documents\Github\CanonShot\Temp\bin\Debug\UnityEngine.Networking.xml
 C:\Users\geniu\Documents\Github\CanonShot\Temp\bin\Debug\UnityEngine.Analytics.xml
 C:\Users\geniu\Documents\Github\CanonShot\obj\Debug\Assembly-CSharp.pdb
+C:\Users\geniu\Documents\Github\CanonShot\Temp\bin\Debug\UIAddons.dll
+C:\Users\geniu\Documents\Github\CanonShot\Temp\bin\Debug\UnityEngine.Advertisements.dll
+C:\Users\geniu\Documents\Github\CanonShot\Temp\bin\Debug\UnityEngine.Advertisements.xml

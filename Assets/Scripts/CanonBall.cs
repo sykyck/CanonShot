@@ -14,6 +14,7 @@ public class CanonBall : MonoBehaviour {
 	public GameObject Pause;
 	public GameObject BlackHole_GameObj;
 	public GameObject CoinAppearParticleSystem;
+	public GameObject CanonParticleSystem;
 	public Sprite AliveImage;
 	public GameObject Smoke;
 	Vector3 initCanonPos;
@@ -52,6 +53,9 @@ public class CanonBall : MonoBehaviour {
 	void Update ()
 	{	
 		if (!IsCanonRotating) {
+			if (canonCounter == 0) {
+				CanonParticleSystem.transform.position = Vector3.Magnitude (CanonParticleSystem.transform.position - initCanonPos) * (Quaternion.Euler (0, 0, transform.rotation.eulerAngles.z) * (Vector3.up)) + initCanonPos;
+			}
 			canonCounter += Time.deltaTime / 1f;
 			gameObject.transform.position = Vector3.Lerp (transform.position, initCanonPos, canonCounter);
 		}
@@ -101,6 +105,7 @@ public class CanonBall : MonoBehaviour {
 	}
 	void shootBall()
 	{
+		CanonParticleSystem.SetActive (true);
 		for(int i=0;i<Balls.transform.childCount;i++)
 		{
 			if (!Balls.transform.GetChild (i).gameObject.activeInHierarchy)
@@ -135,12 +140,14 @@ public class CanonBall : MonoBehaviour {
 	}
 	void PlaceCanonAtInitPos()
 	{
+		CanonParticleSystem.SetActive (false);
 		gameObject.GetComponent<Rigidbody2D> ().Sleep ();
 //		gameObject.transform.position = Vector3.MoveTowards (transform.position, initCanonPos,Vector3.Distance(transform.position,initCanonPos));
 //		gameObject.transform.position = Vector3.Lerp (transform.position, initCanonPos,2f);
 	}
 	void shootCoin()
 	{
+		CanonParticleSystem.SetActive (true);
 		for(int i=0;i<Coins.transform.childCount;i++)
 		{
 			if (!Coins.transform.GetChild (i).gameObject.activeInHierarchy)
