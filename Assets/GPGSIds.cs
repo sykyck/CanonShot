@@ -24,23 +24,7 @@
 
 public static class GPGSIds
 {
-        public const string achievement_champion = "CgkI2Pnmx9MPEAIQBg"; // <GPGSID>
-        public const string achievement_stylizer = "CgkI2Pnmx9MPEAIQDQ"; // <GPGSID>
-        public const string achievement_rookie_bettor = "CgkI2Pnmx9MPEAIQAw"; // <GPGSID>
-        public const string achievement_victor = "CgkI2Pnmx9MPEAIQBQ"; // <GPGSID>
-        public const string achievement_striker = "CgkI2Pnmx9MPEAIQAA"; // <GPGSID>
-        public const string achievement_duo_striker = "CgkI2Pnmx9MPEAIQAQ"; // <GPGSID>
-        public const string achievement_finisher = "CgkI2Pnmx9MPEAIQAg"; // <GPGSID>
-        public const string achievement_risky_bettor = "CgkI2Pnmx9MPEAIQBA"; // <GPGSID>
-        public const string achievement_bomber = "CgkI2Pnmx9MPEAIQCg"; // <GPGSID>
-        public const string achievement_whopper = "CgkI2Pnmx9MPEAIQDA"; // <GPGSID>
-        public const string achievement_electrocutioner = "CgkI2Pnmx9MPEAIQCQ"; // <GPGSID>
-        public const string achievement_pro_bettor = "CgkI2Pnmx9MPEAIQDg"; // <GPGSID>
-        public const string leaderboard_total_matches_won = "CgkI2Pnmx9MPEAIQEg"; // <GPGSID>
-        public const string achievement_private_player = "CgkI2Pnmx9MPEAIQCA"; // <GPGSID>
-        public const string achievement_duplexer = "CgkI2Pnmx9MPEAIQCw"; // <GPGSID>
-        public const string achievement_bowling_king = "CgkI2Pnmx9MPEAIQBw"; // <GPGSID>
-        public const string leaderboard_total_coins_earned = "CgkI2Pnmx9MPEAIQEQ"; // <GPGSID>
+        public const string leaderboard_high_score = "CgkIkvGAt_UJEAIQAQ"; // <GPGSID>
 
 }
 

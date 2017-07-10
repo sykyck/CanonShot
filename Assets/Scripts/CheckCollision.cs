@@ -4,6 +4,7 @@ using System.Collections;
 public class CheckCollision : MonoBehaviour 
 {
 	Vector3 VortexCollidedPos;
+	public GameObject CoinParticleSystem;
 	System.Collections.Generic.List<GameObject> CollidedObj;
 	public static bool objcollided;
 	public int noofcollisions;
@@ -43,6 +44,7 @@ public class CheckCollision : MonoBehaviour
 			}
 			if (collision.gameObject.name == "CoinPrefab") 
 			{
+				CoinParticleSystem.SetActive (false);
 				GameManager.coinsCollected = GameManager.coinsCollected + 1;
 				CanonBall.currentCoinsNumInScene = CanonBall.currentCoinsNumInScene - 1;
 				CanonBall.currentTotalNum = CanonBall.currentTotalNum - 1;
