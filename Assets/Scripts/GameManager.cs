@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-		scoreText.text = System.Convert.ToString(score);
+		scoreText.text = System.Convert.ToString(CheckCollision.noofcollisions);
 		coinsText.text = System.Convert.ToString(coinsCollected);
 		if ((!pause)&&(startPauseTime!=0))
 		{

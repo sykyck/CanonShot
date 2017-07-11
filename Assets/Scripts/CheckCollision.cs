@@ -7,7 +7,7 @@ public class CheckCollision : MonoBehaviour
 	public GameObject CoinParticleSystem;
 	System.Collections.Generic.List<GameObject> CollidedObj;
 	public static bool objcollided;
-	public int noofcollisions;
+	public static int noofcollisions;
 	Vector3 initPos;
 	// Use this for initialization
 	void Start () 
@@ -28,7 +28,7 @@ public class CheckCollision : MonoBehaviour
 		{
 			noofcollisions += 1;
 			collision.gameObject.GetComponent<Rigidbody2D>().Sleep ();
-			gameObject.GetComponent<PolygonCollider2D> ().enabled = false;
+			collision.gameObject.GetComponent<PolygonCollider2D> ().enabled = false;
 			CollidedObj.Add (collision.gameObject);
 			objcollided = true;
 			for(int i=1;i<=5;i++)
@@ -66,7 +66,7 @@ public class CheckCollision : MonoBehaviour
 		objcollided = false;
 		CollidedObj [0].transform.position = initPos;
 		CollidedObj[0].SetActive (false);
-		gameObject.GetComponent<PolygonCollider2D> ().enabled = true;
+		CollidedObj[0].GetComponent<PolygonCollider2D> ().enabled = true;
 		if (CollidedObj[0].name == "CanonBall") {
 			CollidedObj[0].transform.localScale = new Vector3 (0.05f, 0.05f, 0.05f);
 		}

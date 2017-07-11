@@ -1143,7 +1143,6 @@ namespace GooglePlayGames
             {
                 leaderboardId = MapId(leaderboardId);
             }
-
             mClient.ShowLeaderboardUI(leaderboardId, LeaderboardTimeSpan.AllTime, null);
         }
 

@@ -288,7 +288,7 @@
 'Assets/Scripts/CheckCollision.cs'
 'Assets/Scripts/CollisionDetection.cs'
 'Assets/Scripts/GameManager.cs'
-'Assets/Scripts/LeaderBoardManager.cs'
+'Assets/Scripts/LeaderBoardHandler.cs'
 'Assets/Scripts/TouchManager.cs'
 'Assets/UIAddons/Scripts/SceneExample.cs'
 -r:'/Volumes/A/Applications/Unity5.4.0/Unity.app/Contents/Mono/lib/mono/unity/System.Runtime.Serialization.dll'

@@ -84,13 +84,18 @@ public class CollisionDetection : MonoBehaviour {
 			if (GameManager.strikes == GameManager.strikesAllowed)
 			{
 				MainStatus.GetComponent<UnityEngine.UI.Text> ().text = "Game Ended";
+				GameManager.StartOrPauseGame ();
 				GameEndPanel.SetActive (true);
 				LowerPanel.SetActive (false);
 				Pause.GetComponent<UnityEngine.UI.Button> ().enabled = false;
+				LeaderBoardHandler.GetInstance ().GetPlayerHighScore ();
+				if (GameManager.score > LeaderBoardHandler.GetInstance ().highScore) {
+					LeaderBoardHandler.GetInstance ().RemoveHighScore ();
+					LeaderBoardHandler.GetInstance ().OnAddScoreToLeaderBoard (GameManager.score);
+				}
 //				for (int i = 0; i < Strikes.transform.childCount; i++) {
 //					Strikes.transform.GetChild (i).gameObject.SetActive (false);
 //				}
-				GameManager.StartOrPauseGame ();
 			}
 		}
 	}
