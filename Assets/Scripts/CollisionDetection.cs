@@ -89,13 +89,13 @@ public class CollisionDetection : MonoBehaviour {
 				LowerPanel.SetActive (false);
 				Pause.GetComponent<UnityEngine.UI.Button> ().enabled = false;
 				LeaderBoardHandler.GetInstance ().GetPlayerHighScore ();
-				if (GameManager.score > LeaderBoardHandler.GetInstance ().highScore) {
-					LeaderBoardHandler.GetInstance ().RemoveHighScore ();
+				if (GameManager.score > LeaderBoardHandler.GetInstance().leaderboardHighScore||LeaderBoardHandler.GetInstance().leaderboardHighScore==0) {
 					LeaderBoardHandler.GetInstance ().OnAddScoreToLeaderBoard (GameManager.score);
 				}
 //				for (int i = 0; i < Strikes.transform.childCount; i++) {
 //					Strikes.transform.GetChild (i).gameObject.SetActive (false);
 //				}
+
 			}
 		}
 	}

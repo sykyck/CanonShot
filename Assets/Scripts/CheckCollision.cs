@@ -14,7 +14,7 @@ public class CheckCollision : MonoBehaviour
 	{
 	  noofcollisions = 0;
 	  CollidedObj = new System.Collections.Generic.List<GameObject> ();
-		initPos = GameManager.Canon_GameObj.transform.position;
+	  initPos = GameManager.Canon_GameObj.transform.position;
 	}
 	
 	// Update is called once per frame
