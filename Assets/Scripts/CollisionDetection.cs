@@ -88,7 +88,6 @@ public class CollisionDetection : MonoBehaviour {
 				GameEndPanel.SetActive (true);
 				LowerPanel.SetActive (false);
 				Pause.GetComponent<UnityEngine.UI.Button> ().enabled = false;
-				LeaderBoardHandler.GetInstance ().LogIn ();
 				if (GameManager.score > GameManager.leaderBoardHighScore||GameManager.leaderBoardHighScore==0) {
 					LeaderBoardHandler.GetInstance ().OnAddScoreToLeaderBoard (GameManager.score);
 					LeaderBoardHandler.GetInstance ().ShowHighScoreLeaderBoard ();
