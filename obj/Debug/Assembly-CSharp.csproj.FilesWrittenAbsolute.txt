@@ -54,3 +54,14 @@
 /Volumes/C/Github Desktop/CanonShot/Temp/bin/Debug/Mono.Cecil.Mdb.dll
 /Volumes/C/Github Desktop/CanonShot/Temp/bin/Debug/UIAddons.dll
 /Volumes/C/Github Desktop/CanonShot/Temp/bin/Debug/UnityEngine.Advertisements.dll
+/Volumes/C/Github Desktop/CanonShot/Temp/bin/Debug/UnityEngine.Purchasing.dll
+/Volumes/C/Github Desktop/CanonShot/Temp/bin/Debug/FacebookStore.dll
+/Volumes/C/Github Desktop/CanonShot/Temp/bin/Debug/Security.dll
+/Volumes/C/Github Desktop/CanonShot/Temp/bin/Debug/Purchasing.Common.dll
+/Volumes/C/Github Desktop/CanonShot/Temp/bin/Debug/Apple.dll
+/Volumes/C/Github Desktop/CanonShot/Temp/bin/Debug/Stores.dll
+/Volumes/C/Github Desktop/CanonShot/Temp/bin/Debug/Tizen.dll
+/Volumes/C/Github Desktop/CanonShot/Temp/bin/Debug/winrt.dll
+/Volumes/C/Github Desktop/CanonShot/Temp/bin/Debug/Editor.dll
+/Volumes/C/Github Desktop/CanonShot/Temp/bin/Debug/Assembly-CSharp-firstpass.dll
+/Volumes/C/Github Desktop/CanonShot/Temp/bin/Debug/Assembly-CSharp-firstpass.dll.mdb

@@ -7,7 +7,6 @@ public class LeaderBoardHandler : MonoBehaviour
 {
 	public string highScoreLeaderboardId;
 	public string playerId;
-	public long leaderboardHighScore;
 
 	private static LeaderBoardHandler instance;
 
@@ -38,10 +37,9 @@ public class LeaderBoardHandler : MonoBehaviour
 		PlayGamesPlatform.Instance.localUser.Authenticate ((bool success) =>
 			{
 				if (success) {
-					Debug.Log ("Login Sucess");
 					playerId = Social.localUser.id;
+					GetPlayerHighScore();
 				} else {
-					Debug.Log ("Login failed");
 				}
 			});
 	}
@@ -63,39 +61,30 @@ public class LeaderBoardHandler : MonoBehaviour
 	/// 
 	public long GetPlayerHighScore()
 	{
-		Debug.Log ("Inside GetPlayerHighScore");
-		PlayGamesPlatform.Instance.LoadScores ("CgkIkvGAt_UJEAIQAQ", LeaderboardStart.PlayerCentered, 1, LeaderboardCollection.Public, LeaderboardTimeSpan.AllTime,
+		PlayGamesPlatform.Instance.LoadScores ("CgkIkvGAt_UJEAIQAQ", LeaderboardStart.PlayerCentered, 1, LeaderboardCollection.Social, LeaderboardTimeSpan.AllTime,
 			(LeaderboardScoreData data) => {
 				if(data.Scores.Length>0)
 				{
-					leaderboardHighScore = data.PlayerScore.value;
-					Debug.Log("leaderboardHighScore-"+System.Convert.ToString(leaderboardHighScore));
+					GameManager.leaderBoardHighScore = data.PlayerScore.value;
 				}
 				else
 				{
 					PlayGamesPlatform.Instance.ReportScore(0,"CgkIkvGAt_UJEAIQAQ",(bool success) => {
 						if (success) {
-							Debug.Log ("Score aDDED Success");
-
 						} else {
-							Debug.Log ("Update Score Fail");
 						}
-					leaderboardHighScore = 0;
-					Debug.Log("leaderboardHighScore-"+System.Convert.ToString(leaderboardHighScore));
+					    GameManager.leaderBoardHighScore = 0;
 					});
 				}
 			});
-		return leaderboardHighScore; 
+	    return (GameManager.leaderBoardHighScore); 
 	}
 	public void OnAddScoreToLeaderBoard (int score)
 	{
 		if (PlayGamesPlatform.Instance.localUser.authenticated) {
 			PlayGamesPlatform.Instance.ReportScore (score,"CgkIkvGAt_UJEAIQAQ", (bool success) => {
 				if (success) {
-					Debug.Log ("Update Score Success");
-
 				} else {
-					Debug.Log ("Update Score Fail");
 				}
 			});
 		}

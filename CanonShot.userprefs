@@ -4,29 +4,14 @@
     <Files>
       <File FileName="Assets/Scripts/CanonBall.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/ChangeCollider.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/CheckCollision.cs" Line="7" Column="39" />
+      <File FileName="Assets/Scripts/CheckCollision.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/GameManager.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/CollisionDetection.cs" Line="93" Column="84" />
-      <File FileName="Assets/Scripts/LeaderBoardHandler.cs" Line="21" Column="37" />
-      <File FileName="Assets/GooglePlayGames/BasicApi/CommonTypes.cs" Line="109" Column="7" />
-      <File FileName="Assets/GooglePlayGames/BasicApi/LeaderboardScoreData.cs" Line="112" Column="20" />
+      <File FileName="Assets/Scripts/CollisionDetection.cs" Line="96" Column="42" />
+      <File FileName="Assets/Scripts/LeaderBoardHandler.cs" Line="55" Column="16" />
+      <File FileName="Assets/GooglePlayGames/BasicApi/CommonTypes.cs" Line="69" Column="7" />
+      <File FileName="../../FrimusBowling/Assets/Scripts/Achievement_Leaderboard/LeaderBoardHandler.cs" Line="1" Column="1" />
+      <File FileName="Assets/GooglePlayGames/ISocialPlatform/PlayGamesPlatform.cs" Line="1170" Column="25" />
     </Files>
-    <Pads>
-      <Pad Id="ProjectPad">
-        <State name="__root__">
-          <Node name="CanonShot" expanded="True">
-            <Node name="Assembly-CSharp" expanded="True">
-              <Node name="GooglePlayGames" expanded="True">
-                <Node name="BasicApi" expanded="True" />
-              </Node>
-              <Node name="Scripts" expanded="True">
-                <Node name="LeaderBoardHandler.cs" selected="True" />
-              </Node>
-            </Node>
-          </Node>
-        </State>
-      </Pad>
-    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />

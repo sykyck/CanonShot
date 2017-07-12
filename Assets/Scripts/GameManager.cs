@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour {
 	public static int coinsCollected;
 	public static int strikes;
 	public static float totalPauseTime;
+	public static long leaderBoardHighScore;
 	public static GameObject BlackHole_GameObj;
 	public static GameObject Canon_GameObj;
     public static bool pause;

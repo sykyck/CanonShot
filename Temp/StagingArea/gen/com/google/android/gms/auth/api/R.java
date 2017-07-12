@@ -176,7 +176,8 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int unityads_video_end_suffix=0x7f040009;
     }
     public static final class style {
-        public static final int UnityThemeSelector=0x7f070000;
+        public static final int UnityThemeSelector=0x7f070001;
+        public static final int VrActivityTheme=0x7f070000;
     }
     public static final class styleable {
         /** Attributes that can be used with a LoadingImageView.
