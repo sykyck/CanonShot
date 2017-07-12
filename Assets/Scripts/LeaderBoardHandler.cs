@@ -5,7 +5,6 @@ using GooglePlayGames.BasicApi;
 using UnityEngine.SocialPlatforms;
 public class LeaderBoardHandler : MonoBehaviour
 {
-	#region PUBLIC_VAR
 	public string highScoreLeaderboardId;
 	public string playerId;
 	public long leaderboardHighScore;
@@ -22,24 +21,21 @@ public class LeaderBoardHandler : MonoBehaviour
 		}
 		return instance;
 	}
-	#endregion
-	#region DEFAULT_UNITY_CALLBACKS
 	void Start ()
 	{
 		// recommended for debugging:
 		PlayGamesPlatform.DebugLogEnabled = true;
+		highScoreLeaderboardId = "CgkIkvGAt_UJEAIQAQ";
 		// Activate the Google Play Games platform
 		PlayGamesPlatform.Activate ();
 		LogIn ();
 	}
-	#endregion
-	#region BUTTON_CALLBACKS
 	/// <summary>
 	/// Login In Into Your Google+ Account
 	/// </summary>
 	public void LogIn ()
 	{
-		Social.localUser.Authenticate ((bool success) =>
+		PlayGamesPlatform.Instance.localUser.Authenticate ((bool success) =>
 			{
 				if (success) {
 					Debug.Log ("Login Sucess");
@@ -48,7 +44,6 @@ public class LeaderBoardHandler : MonoBehaviour
 					Debug.Log ("Login failed");
 				}
 			});
-		ShowHighScoreLeaderBoard ();
 	}
 	/// <summary>
 	/// Shows All Available Leaderborad
@@ -56,19 +51,11 @@ public class LeaderBoardHandler : MonoBehaviour
 	public void ShowHighScoreLeaderBoard ()
 	{
 		//        Social.ShowLeaderboardUI (); // Show all leaderboard
-		Social.LoadScores (highScoreLeaderboardId, scores => {
-			if (scores.Length > 0) 
-			{
-				PlayGamesPlatform.Instance.LoadScores (highScoreLeaderboardId, LeaderboardStart.PlayerCentered,1, LeaderboardCollection.Public, LeaderboardTimeSpan.AllTime,
-					(LeaderboardScoreData data) => {
-					});
+		((PlayGamesPlatform)Social.Active).ShowLeaderboardUI ("CgkIkvGAt_UJEAIQAQ", LeaderboardTimeSpan.AllTime, (status) => {
+			if (status==UIStatus.Valid) {
+				Debug.Log ("valid");
 			}
-			else
-			{
-				OnAddScoreToLeaderBoard(GameManager.score);
-			}
-		});
-	   ((PlayGamesPlatform)Social.Active).ShowLeaderboardUI (highScoreLeaderboardId);// Show current (Active) leaderboard
+		});// Show current (Active) leaderboard
 	}
 	/// <summary>
 	/// Adds Score To leader board
@@ -76,36 +63,44 @@ public class LeaderBoardHandler : MonoBehaviour
 	/// 
 	public long GetPlayerHighScore()
 	{
-		Social.LoadScores (highScoreLeaderboardId, scores => {
-			if (scores.Length > 0) {
-				PlayGamesPlatform.Instance.LoadScores (highScoreLeaderboardId, LeaderboardStart.PlayerCentered, 1, LeaderboardCollection.Public, LeaderboardTimeSpan.AllTime,
-					(LeaderboardScoreData data) => {
-						leaderboardHighScore = data.PlayerScore.value;
+		Debug.Log ("Inside GetPlayerHighScore");
+		PlayGamesPlatform.Instance.LoadScores ("CgkIkvGAt_UJEAIQAQ", LeaderboardStart.PlayerCentered, 1, LeaderboardCollection.Public, LeaderboardTimeSpan.AllTime,
+			(LeaderboardScoreData data) => {
+				if(data.Scores.Length>0)
+				{
+					leaderboardHighScore = data.PlayerScore.value;
+					Debug.Log("leaderboardHighScore-"+System.Convert.ToString(leaderboardHighScore));
+				}
+				else
+				{
+					PlayGamesPlatform.Instance.ReportScore(0,"CgkIkvGAt_UJEAIQAQ",(bool success) => {
+						if (success) {
+							Debug.Log ("Score aDDED Success");
+
+						} else {
+							Debug.Log ("Update Score Fail");
+						}
+					leaderboardHighScore = 0;
+					Debug.Log("leaderboardHighScore-"+System.Convert.ToString(leaderboardHighScore));
 					});
-			} else {
-				leaderboardHighScore = 0;
-			}
-		});
+				}
+			});
 		return leaderboardHighScore; 
 	}
 	public void OnAddScoreToLeaderBoard (int score)
 	{
-		if (Social.localUser.authenticated) {
-			Social.ReportScore (score, highScoreLeaderboardId, (bool success) =>
-				{
-					if (success) {
-						Debug.Log ("Update Score Success");
+		if (PlayGamesPlatform.Instance.localUser.authenticated) {
+			PlayGamesPlatform.Instance.ReportScore (score,"CgkIkvGAt_UJEAIQAQ", (bool success) => {
+				if (success) {
+					Debug.Log ("Update Score Success");
 
-					} else {
-						Debug.Log ("Update Score Fail");
-					}
-				});
+				} else {
+					Debug.Log ("Update Score Fail");
+				}
+			});
 		}
 	}
-	public void RemoveHighScore()
-	{
-		
-	}	
+
 	/// <summary>
 	/// On Logout of your Google+ Account
 	/// </summary>
@@ -113,7 +108,6 @@ public class LeaderBoardHandler : MonoBehaviour
 	{
 		((PlayGamesPlatform)Social.Active).SignOut ();
 	}
-	#endregion
 }
 
    	
