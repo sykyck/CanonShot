@@ -111,7 +111,7 @@ public class TouchManager : MonoBehaviour
 				GameManager.coinsCollected = GameManager.coinsCollected - 20;
 				for (int i = 0; i < gameObject.transform.childCount; i++)
 				{
-					gameObject.transform.GetChild (i).gameObject.transform.localScale += new Vector3 (1f, 1f, 0f);
+					gameObject.transform.GetChild (i).gameObject.transform.localScale += new Vector3 (0.2f, 0.2f, 0f);
 					gameObject.transform.GetChild (i).gameObject.GetComponent<ParticleSystem> ().startSize += 1;
 				}
 				Invoke ("DecreaseVortexSizeAfterFixedTime", 30f);
@@ -145,8 +145,8 @@ public class TouchManager : MonoBehaviour
 	void DecreaseVortexSizeAfterFixedTime()
 	{
 		for (int i = 0; i < gameObject.transform.childCount; i++) {
-			gameObject.transform.GetChild (i).gameObject.transform.localScale = new Vector3 (0.3f, 0.3f, 1f);
-			gameObject.transform.GetChild (i).gameObject.GetComponent<ParticleSystem> ().startSize = 3;
+			gameObject.transform.GetChild (i).gameObject.transform.localScale -= new Vector3 (0.2f, 0.2f, 0f);
+			gameObject.transform.GetChild (i).gameObject.GetComponent<ParticleSystem> ().startSize -= 1;
 		}
 	}
 	void StartGameWithIncreaseVortexSize()

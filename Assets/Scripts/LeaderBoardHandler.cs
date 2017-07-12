@@ -61,7 +61,7 @@ public class LeaderBoardHandler : MonoBehaviour
 	/// 
 	public long GetPlayerHighScore()
 	{
-		PlayGamesPlatform.Instance.LoadScores ("CgkIkvGAt_UJEAIQAQ", LeaderboardStart.PlayerCentered, 1, LeaderboardCollection.Social, LeaderboardTimeSpan.AllTime,
+		PlayGamesPlatform.Instance.LoadScores ("CgkIkvGAt_UJEAIQAQ", LeaderboardStart.PlayerCentered, 1, LeaderboardCollection.Public, LeaderboardTimeSpan.AllTime,
 			(LeaderboardScoreData data) => {
 				if(data.Scores.Length>0)
 				{
