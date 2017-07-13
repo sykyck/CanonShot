@@ -243,6 +243,8 @@
      <Compile Include="Assets\Scripts\CheckCollision.cs" />
      <Compile Include="Assets\Scripts\CollisionDetection.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
+     <Compile Include="Assets\Scripts\IAPConstants.cs" />
+     <Compile Include="Assets\Scripts\IAPHandler.cs" />
      <Compile Include="Assets\Scripts\LeaderBoardHandler.cs" />
      <Compile Include="Assets\Scripts\TouchManager.cs" />
      <Compile Include="Assets\UIAddons\Scripts\SceneExample.cs" />

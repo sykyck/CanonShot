@@ -6,6 +6,7 @@ using UnityEngine.SocialPlatforms;
 public class LeaderBoardHandler : MonoBehaviour
 {
 	public string highScoreLeaderboardId;
+	public GameObject MainStatus;
 	public string playerId;
 
 	private static LeaderBoardHandler instance;
@@ -40,6 +41,7 @@ public class LeaderBoardHandler : MonoBehaviour
 					playerId = Social.localUser.id;
 					GetPlayerHighScore();
 				} else {
+					MainStatus.GetComponent<UnityEngine.UI.Text> ().text="Cannot LogIn";
 				}
 			});
 	}
@@ -82,11 +84,14 @@ public class LeaderBoardHandler : MonoBehaviour
 	public void OnAddScoreToLeaderBoard (int score)
 	{
 		if (PlayGamesPlatform.Instance.localUser.authenticated) {
-			PlayGamesPlatform.Instance.ReportScore (score,"CgkIkvGAt_UJEAIQAQ", (bool success) => {
+			PlayGamesPlatform.Instance.ReportScore (score, "CgkIkvGAt_UJEAIQAQ", (bool success) => {
 				if (success) {
+					ShowHighScoreLeaderBoard ();
 				} else {
 				}
 			});
+		} else {
+			MainStatus.GetComponent<UnityEngine.UI.Text> ().text = "Cannot Authenticate User";
 		}
 	}
 

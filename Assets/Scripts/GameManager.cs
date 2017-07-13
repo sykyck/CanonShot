@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour {
     public static bool pause;
 	public static float startPauseTime,endPauseTime;
 	public GameObject GameStatus;
+	public GameObject PurchasePanel;
 	public GameObject Strikes;
 	public GameObject MainStatus;
 	public GameObject GameEndPanel;
@@ -234,6 +235,21 @@ public class GameManager : MonoBehaviour {
 			LowerPanel.SetActive (true);
 		}
 		StartOrPauseGame ();
+	}
+
+	public void OnPurchaseCoinClick()
+	{
+		StartOrPauseGame ();
+		Pause.GetComponent<UnityEngine.UI.Button> ().enabled = false;
+		LowerPanel.SetActive (false);
+		PurchasePanel.SetActive (true);
+	}
+	public void OnPurchaseBackButttonClick()
+	{
+		StartOrPauseGame ();
+		Pause.GetComponent<UnityEngine.UI.Button> ().enabled = true;
+		LowerPanel.SetActive (true);
+		PurchasePanel.SetActive (false);
 	}
 		
 }

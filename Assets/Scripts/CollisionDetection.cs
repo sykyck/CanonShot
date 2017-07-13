@@ -90,7 +90,6 @@ public class CollisionDetection : MonoBehaviour {
 				Pause.GetComponent<UnityEngine.UI.Button> ().enabled = false;
 				if (GameManager.score > GameManager.leaderBoardHighScore||GameManager.leaderBoardHighScore==0) {
 					LeaderBoardHandler.GetInstance ().OnAddScoreToLeaderBoard (GameManager.score);
-					LeaderBoardHandler.GetInstance ().ShowHighScoreLeaderBoard ();
 				}
 //				for (int i = 0; i < Strikes.transform.childCount; i++) {
 //					Strikes.transform.GetChild (i).gameObject.SetActive (false);
