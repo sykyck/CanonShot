@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour {
 	public GameObject coinsText_GameObj;
 	public GameObject LowerPanel;
 	UnityEngine.UI.Text scoreText,coinsText; 
+	int coinsPurchaseOption;
 	// Use this for initialization
 	void Start () 
 	{
@@ -37,6 +38,7 @@ public class GameManager : MonoBehaviour {
 		strikesAllowed = 3;
 		maxstrikesAllowed = 5;
 		coinsCollected = 60;
+		coinsPurchaseOption = 0;
 		scoreText = scoreText_GameObj.GetComponent<UnityEngine.UI.Text> ();
 		coinsText = coinsText_GameObj.GetComponent<UnityEngine.UI.Text> ();
 	}
@@ -52,7 +54,42 @@ public class GameManager : MonoBehaviour {
 			endPauseTime = 0f;
 			startPauseTime = 0f;
 		}
-
+		if ((PurchasePanel.activeInHierarchy) && (IAPHandler.GetInstance ().IsIAPInitialised)) {
+			if (coinsPurchaseOption == 1) {
+				IAPHandler.GetInstance ().controller.InitiatePurchase (IAPConstants.COINS_100);
+			}
+			if (coinsPurchaseOption == 2) {
+				IAPHandler.GetInstance ().controller.InitiatePurchase (IAPConstants.COINS_200);
+			}
+			if (coinsPurchaseOption == 3) {
+				IAPHandler.GetInstance ().controller.InitiatePurchase (IAPConstants.COINS_500);
+			}
+		}
+		if((IAPHandler.GetInstance ().IsIAPInitialised)&&(IAPHandler.GetInstance ().IsIAPCompleted))
+		{
+			if (coinsPurchaseOption == 1) {
+				coinsCollected += 100;
+			}
+			if (coinsPurchaseOption == 2) {
+				coinsCollected += 200;
+			}
+			if (coinsPurchaseOption == 3) {
+				coinsCollected += 500;
+			}
+			MainStatus.GetComponent<UnityEngine.UI.Text> ().text = "Purchase Completed";
+			coinsPurchaseOption = 0;
+			IAPHandler.GetInstance ().IsIAPCompleted = false;
+			PurchasePanel.SetActive (false);
+			GameResumePanel.SetActive (true);
+		}
+		if((IAPHandler.GetInstance ().IsIAPInitialised)&&(IAPHandler.GetInstance ().IsIAPFailed))
+		{
+			MainStatus.GetComponent<UnityEngine.UI.Text> ().text = "Purchase Failed";
+			coinsPurchaseOption = 0;
+			IAPHandler.GetInstance ().IsIAPFailed = false;
+			PurchasePanel.SetActive (false);
+			GameResumePanel.SetActive (true);
+		}
 	}
 	public void GainExtraLife()
 	{
@@ -98,6 +135,18 @@ public class GameManager : MonoBehaviour {
 			}
 		}
 	}
+	public void On_100Coins_PuchaseClick()
+	{
+		coinsPurchaseOption = 1;
+	}
+	public void On_200Coins_PuchaseClick()
+	{
+		coinsPurchaseOption = 2;
+	}
+	public void On_500Coins_PuchaseClick()
+	{
+		coinsPurchaseOption = 3;
+	}
 
 	public void ShowRewardedAd()
 	{
@@ -108,7 +157,8 @@ public class GameManager : MonoBehaviour {
 			var options = new ShowOptions { resultCallback = HandleShowResult };
 			Advertisement.Show ("rewardedVideo", options);
 		} else {
-			MainStatus.GetComponent<UnityEngine.UI.Text> ().text = "No Ads Ready Try Again";
+			MainStatus.GetComponent<UnityEngine.UI.Text> ().text = "No Ads Ready" +
+				"Try Again";
 		}
 	}
 

@@ -11,50 +11,6 @@
     <ignoredVersion />
   </explodeData>
   <explodeData>
-    <aar>play-services-auth-base-11.0.0</aar>
-    <modificationTime>2017-07-12T15:52:47.0000000+05:30</modificationTime>
-    <explode>false</explode>
-    <bundleId>com.frimustechnologies.canonshottest1</bundleId>
-    <path>Assets/Plugins/Android/play-services-auth-base-11.0.0.aar</path>
-    <targetAbi>universal</targetAbi>
-    <gradleBuildEnabled>false</gradleBuildEnabled>
-    <gradleExport>false</gradleExport>
-    <ignoredVersion />
-  </explodeData>
-  <explodeData>
-    <aar>play-services-base-11.0.0</aar>
-    <modificationTime>2017-07-12T15:52:47.0000000+05:30</modificationTime>
-    <explode>false</explode>
-    <bundleId>com.frimustechnologies.canonshottest1</bundleId>
-    <path>Assets/Plugins/Android/play-services-base-11.0.0.aar</path>
-    <targetAbi>universal</targetAbi>
-    <gradleBuildEnabled>false</gradleBuildEnabled>
-    <gradleExport>false</gradleExport>
-    <ignoredVersion />
-  </explodeData>
-  <explodeData>
-    <aar>play-services-basement-11.0.0</aar>
-    <modificationTime>2017-07-12T15:52:47.0000000+05:30</modificationTime>
-    <explode>false</explode>
-    <bundleId>com.frimustechnologies.canonshottest1</bundleId>
-    <path>Assets/Plugins/Android/play-services-basement-11.0.0.aar</path>
-    <targetAbi>universal</targetAbi>
-    <gradleBuildEnabled>false</gradleBuildEnabled>
-    <gradleExport>false</gradleExport>
-    <ignoredVersion />
-  </explodeData>
-  <explodeData>
-    <aar>play-services-drive-11.0.0</aar>
-    <modificationTime>2017-07-12T15:52:47.0000000+05:30</modificationTime>
-    <explode>false</explode>
-    <bundleId>com.frimustechnologies.canonshottest1</bundleId>
-    <path>Assets/Plugins/Android/play-services-drive-11.0.0.aar</path>
-    <targetAbi>universal</targetAbi>
-    <gradleBuildEnabled>false</gradleBuildEnabled>
-    <gradleExport>false</gradleExport>
-    <ignoredVersion />
-  </explodeData>
-  <explodeData>
     <aar>play-services-games-11.0.0</aar>
     <modificationTime>2017-07-10T14:48:54.0000000+05:30</modificationTime>
     <explode>false</explode>
@@ -71,83 +27,6 @@
     <explode>false</explode>
     <bundleId>com.frimustechnologies.canonshottest1</bundleId>
     <path>Assets/Plugins/Android/play-services-nearby-11.0.0.aar</path>
-    <targetAbi>universal</targetAbi>
-    <gradleBuildEnabled>false</gradleBuildEnabled>
-    <gradleExport>false</gradleExport>
-    <ignoredVersion />
-  </explodeData>
-  <explodeData>
-    <aar>play-services-tasks-11.0.0</aar>
-    <modificationTime>2017-07-12T15:52:47.0000000+05:30</modificationTime>
-    <explode>false</explode>
-    <bundleId>com.frimustechnologies.canonshottest1</bundleId>
-    <path>Assets/Plugins/Android/play-services-tasks-11.0.0.aar</path>
-    <targetAbi>universal</targetAbi>
-    <gradleBuildEnabled>false</gradleBuildEnabled>
-    <gradleExport>false</gradleExport>
-    <ignoredVersion />
-  </explodeData>
-  <explodeData>
-    <aar>support-compat-25.2.0</aar>
-    <modificationTime>2017-07-12T15:52:47.0000000+05:30</modificationTime>
-    <explode>false</explode>
-    <bundleId>com.frimustechnologies.canonshottest1</bundleId>
-    <path>Assets/Plugins/Android/support-compat-25.2.0.aar</path>
-    <targetAbi>universal</targetAbi>
-    <gradleBuildEnabled>false</gradleBuildEnabled>
-    <gradleExport>false</gradleExport>
-    <ignoredVersion />
-  </explodeData>
-  <explodeData>
-    <aar>support-core-ui-25.2.0</aar>
-    <modificationTime>2017-07-12T15:52:47.0000000+05:30</modificationTime>
-    <explode>false</explode>
-    <bundleId>com.frimustechnologies.canonshottest1</bundleId>
-    <path>Assets/Plugins/Android/support-core-ui-25.2.0.aar</path>
-    <targetAbi>universal</targetAbi>
-    <gradleBuildEnabled>false</gradleBuildEnabled>
-    <gradleExport>false</gradleExport>
-    <ignoredVersion />
-  </explodeData>
-  <explodeData>
-    <aar>support-core-utils-25.2.0</aar>
-    <modificationTime>2017-07-12T15:52:47.0000000+05:30</modificationTime>
-    <explode>false</explode>
-    <bundleId>com.frimustechnologies.canonshottest1</bundleId>
-    <path>Assets/Plugins/Android/support-core-utils-25.2.0.aar</path>
-    <targetAbi>universal</targetAbi>
-    <gradleBuildEnabled>false</gradleBuildEnabled>
-    <gradleExport>false</gradleExport>
-    <ignoredVersion />
-  </explodeData>
-  <explodeData>
-    <aar>support-fragment-25.2.0</aar>
-    <modificationTime>2017-07-12T15:52:47.0000000+05:30</modificationTime>
-    <explode>false</explode>
-    <bundleId>com.frimustechnologies.canonshottest1</bundleId>
-    <path>Assets/Plugins/Android/support-fragment-25.2.0.aar</path>
-    <targetAbi>universal</targetAbi>
-    <gradleBuildEnabled>false</gradleBuildEnabled>
-    <gradleExport>false</gradleExport>
-    <ignoredVersion />
-  </explodeData>
-  <explodeData>
-    <aar>support-media-compat-25.2.0</aar>
-    <modificationTime>2017-07-12T15:52:47.0000000+05:30</modificationTime>
-    <explode>false</explode>
-    <bundleId>com.frimustechnologies.canonshottest1</bundleId>
-    <path>Assets/Plugins/Android/support-media-compat-25.2.0.aar</path>
-    <targetAbi>universal</targetAbi>
-    <gradleBuildEnabled>false</gradleBuildEnabled>
-    <gradleExport>false</gradleExport>
-    <ignoredVersion />
-  </explodeData>
-  <explodeData>
-    <aar>support-v4-25.2.0</aar>
-    <modificationTime>2017-07-12T15:52:47.0000000+05:30</modificationTime>
-    <explode>false</explode>
-    <bundleId>com.frimustechnologies.canonshottest1</bundleId>
-    <path>Assets/Plugins/Android/support-v4-25.2.0.aar</path>
     <targetAbi>universal</targetAbi>
     <gradleBuildEnabled>false</gradleBuildEnabled>
     <gradleExport>false</gradleExport>

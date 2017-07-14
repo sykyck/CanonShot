@@ -4,10 +4,23 @@ using UnityEngine.Purchasing;
 
 public class IAPHandler : IStoreListener {
 
-	private IStoreController controller;
-	private IExtensionProvider extensions;
+	public IStoreController controller;
+	public IExtensionProvider extensions;
+	public bool IsIAPInitialised,IsIAPCompleted,IsIAPFailed;
 
-	public IAPHandler () {
+	private static IAPHandler instance;
+
+	public static IAPHandler GetInstance()
+	{
+		if (instance == null)
+		{
+			instance = new IAPHandler();
+		}
+		return instance;
+	}
+
+	private IAPHandler () {
+		IsIAPInitialised = false;
 		var builder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());
 		builder.AddProduct(IAPConstants.COINS_100, ProductType.Consumable, new IDs
 			{
@@ -34,6 +47,8 @@ public class IAPHandler : IStoreListener {
 	{
 		this.controller = controller;
 		this.extensions = extensions;
+		Debug.Log ("IAPPurchaseInitialized");
+		IsIAPInitialised = true;
 	}
 
 	/// <summary>
@@ -47,7 +62,6 @@ public class IAPHandler : IStoreListener {
        
 
 	}
-
 	/// <summary>
 	/// Called when a purchase completes.
 	///
@@ -55,6 +69,8 @@ public class IAPHandler : IStoreListener {
 	/// </summary>
 	public PurchaseProcessingResult ProcessPurchase (PurchaseEventArgs e)
 	{
+		Debug.Log ("IAPPurchaseCompleted");
+		IsIAPCompleted = true;
 		return PurchaseProcessingResult.Complete;
 	}
 
@@ -63,15 +79,8 @@ public class IAPHandler : IStoreListener {
 	/// </summary>
 	public void OnPurchaseFailed (Product i, PurchaseFailureReason p)
 	{
+		Debug.Log ("IAPPurchaseFailed");
+		IsIAPFailed = true;
 	}
-
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+		
 }
