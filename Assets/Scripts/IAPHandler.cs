@@ -24,18 +24,18 @@ public class IAPHandler : IStoreListener {
 		var builder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());
 		builder.AddProduct(IAPConstants.COINS_100, ProductType.Consumable, new IDs
 			{
-				{"100_gold_coins_google", GooglePlay.Name},
-				{"100_gold_coins_mac", MacAppStore.Name}
+				{IAPConstants.COINS_100, GooglePlay.Name},
+				{IAPConstants.COINS_100, MacAppStore.Name}
 			});
 		builder.AddProduct(IAPConstants.COINS_200, ProductType.Consumable, new IDs
 			{
-				{"200_gold_coins_google", GooglePlay.Name},
-				{"200_gold_coins_mac", MacAppStore.Name}
+				{IAPConstants.COINS_200, GooglePlay.Name},
+				{IAPConstants.COINS_200, MacAppStore.Name}
 			});
 		builder.AddProduct(IAPConstants.COINS_500, ProductType.Consumable, new IDs
 			{
-				{"500_gold_coins_google", GooglePlay.Name},
-				{"500_gold_coins_mac", MacAppStore.Name}
+				{IAPConstants.COINS_500, GooglePlay.Name},
+				{IAPConstants.COINS_500, MacAppStore.Name}
 			});
 		UnityPurchasing.Initialize (this, builder);
 	}
